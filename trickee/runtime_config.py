@@ -20,6 +20,19 @@ FILE_SECRETS = (
 )
 
 
+def _predictable_key(value: str) -> bool:
+    """Catch repeated patterns that satisfy length checks without key entropy."""
+    return any(len(value) % size == 0 and value == value[:size] * (len(value) // size)
+               for size in range(1, len(value) // 2 + 1))
+
+
+def _placeholder_host(hostname: str) -> bool:
+    hostname = hostname.rstrip(".").lower()
+    return (hostname in {"example.com", "example.net", "example.org"}
+            or hostname.endswith((".example.com", ".example.net", ".example.org",
+                                    ".test", ".invalid", ".example", ".localhost")))
+
+
 def prepared_environment(values: Mapping[str, str]) -> dict[str, str]:
     """Return a copy with *_FILE secrets resolved; never include secret data in errors."""
     result = dict(values)
@@ -49,7 +62,7 @@ def validate_deployment(values: Mapping[str, str]) -> None:
         raise ValueError("TRICKEE_DEPLOYMENT_MODE is invalid")
     if mode == "local":
         return
-    if values.get("TRICKEE_DEMO_MODE") == "1":
+    if values.get("TRICKEE_DEMO_MODE", "0") not in ("0", ""):
         raise ValueError("demo mode is forbidden in network deployments")
     public_url = values.get("TRICKEE_PUBLIC_URL", "")
     parsed = urlsplit(public_url)
@@ -57,6 +70,8 @@ def validate_deployment(values: Mapping[str, str]) -> None:
             or parsed.query or parsed.fragment or parsed.path not in ("", "/")
             or parsed.hostname in ("localhost", "127.0.0.1", "::1")):
         raise ValueError("network deployment requires a public HTTPS origin")
+    if mode == "production" and _placeholder_host(parsed.hostname):
+        raise ValueError("production requires a real public HTTPS origin")
     db_path = PurePosixPath(values.get("TRICKEE_DB", ""))
     if (not db_path.is_absolute() or ".." in db_path.parts
             or not db_path.is_relative_to(PurePosixPath("/app/data"))
@@ -66,6 +81,8 @@ def validate_deployment(values: Mapping[str, str]) -> None:
     operator_key = values.get("TRICKEE_OPERATOR_KEY", "")
     if len(vehicle_key) < 32 or vehicle_key == operator_key or vehicle_key == "local-demo-vehicle-key":
         raise ValueError("network vehicle key is missing, weak or duplicated")
+    if mode == "production" and _predictable_key(vehicle_key):
+        raise ValueError("production vehicle key has a predictable repeated pattern")
     if operator_key:
         if len(operator_key) < 32 or operator_key == "local-demo-operator-key":
             raise ValueError("network operator key is weak")

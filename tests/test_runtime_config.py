@@ -41,12 +41,42 @@ def test_staging_accepts_scoped_accounts_without_global_operator_key():
 
 
 def test_production_requires_scoped_identity_and_rejects_legacy_global_key():
+    production_values = {
+        "TRICKEE_DEPLOYMENT_MODE": "production",
+        "TRICKEE_PUBLIC_URL": "https://fleet.trickee.co.in",
+        "TRICKEE_VEHICLE_KEY": "V7gJ9kL2mN4pQ6rS8tU0vW3xY5zA1bC7",
+    }
     with pytest.raises(ValueError, match="scoped"):
-        validate_deployment(staging(TRICKEE_DEPLOYMENT_MODE="production"))
-    values = staging(TRICKEE_DEPLOYMENT_MODE="production",
+        validate_deployment(staging(**production_values))
+    values = staging(**production_values,
                      TRICKEE_OPERATOR_ACCOUNTS_JSON='[{"tenant_id":"north"}]')
     del values["TRICKEE_OPERATOR_KEY"]
     validate_deployment(values)
+
+
+def test_production_rejects_placeholder_origin_and_predictable_vehicle_key():
+    production = staging(
+        TRICKEE_DEPLOYMENT_MODE="production",
+        TRICKEE_PUBLIC_URL="https://fleet.trickee.co.in",
+        TRICKEE_VEHICLE_KEY="V7gJ9kL2mN4pQ6rS8tU0vW3xY5zA1bC7",
+        TRICKEE_OPERATOR_ACCOUNTS_JSON='[{"tenant_id":"north"}]',
+    )
+    del production["TRICKEE_OPERATOR_KEY"]
+    validate_deployment(production)
+    for changed in (
+        {"TRICKEE_PUBLIC_URL": "https://fleet.example.test"},
+        {"TRICKEE_PUBLIC_URL": "https://example.com"},
+        {"TRICKEE_PUBLIC_URL": "https://fleet.invalid"},
+        {"TRICKEE_VEHICLE_KEY": "v" * 40},
+        {"TRICKEE_VEHICLE_KEY": "1234567890" * 4},
+    ):
+        with pytest.raises(ValueError):
+            validate_deployment({**production, **changed})
+
+
+def test_network_deployment_rejects_ambiguous_demo_mode():
+    with pytest.raises(ValueError, match="demo mode"):
+        validate_deployment(staging(TRICKEE_DEMO_MODE="true"))
 
 
 def test_file_secrets_are_loaded_without_leaking_path_or_value(tmp_path):
