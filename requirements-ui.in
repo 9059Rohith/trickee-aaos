@@ -1,0 +1,2 @@
+# Browser tooling is separate from the deployed service dependency inventory.
+playwright==1.61.0

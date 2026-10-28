@@ -1,0 +1,60 @@
+{
+  "model_type": "SHRUNK_GROUP_MEAN_V1",
+  "task": "CHARGER_AVAILABILITY",
+  "trained_at": "2026-10-11T03:10:09.111042Z",
+  "training_dataset_sha256": "b77462fd7425594a9293b6162acec9c7ca357effcd02172c7ffd6ab371e1407e",
+  "training_count": 960,
+  "source": "SIMULATED",
+  "prior_strength": 20.0,
+  "global_mean": 0.8510416666666667,
+  "groups": {
+    "AC|CLEAR": [
+      60,
+      48.0
+    ],
+    "AC|RAIN": [
+      100,
+      73.0
+    ],
+    "DC|RAIN": [
+      80,
+      66.0
+    ],
+    "DC|HOT": [
+      80,
+      65.0
+    ],
+    "DC|COLD": [
+      80,
+      72.0
+    ],
+    "HPC|CLEAR": [
+      100,
+      96.0
+    ],
+    "AC|HOT": [
+      60,
+      52.0
+    ],
+    "DC|CLEAR": [
+      80,
+      70.0
+    ],
+    "HPC|RAIN": [
+      60,
+      46.0
+    ],
+    "AC|COLD": [
+      100,
+      84.0
+    ],
+    "HPC|HOT": [
+      100,
+      91.0
+    ],
+    "HPC|COLD": [
+      60,
+      54.0
+    ]
+  }
+}

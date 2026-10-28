@@ -1,0 +1,4 @@
+fleet-console/assets/leaflet/leaflet.js -text
+fleet-console/assets/leaflet/leaflet.css -text whitespace=-blank-at-eol
+android-app/gradlew text eol=lf
+*.sh text eol=lf

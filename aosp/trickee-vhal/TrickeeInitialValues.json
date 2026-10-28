@@ -1,0 +1,21 @@
+{
+  "apiVersion": 2,
+  "properties": [
+    {
+      "property": "VehicleProperty::INFO_EV_BATTERY_CAPACITY",
+      "defaultValue": { "floatValues": [65000.0] }
+    },
+    {
+      "property": "VehicleProperty::EV_BATTERY_LEVEL",
+      "defaultValue": { "floatValues": [41600.0] },
+      "maxSampleRate": 100.0,
+      "minSampleRate": 1.0
+    },
+    {
+      "property": "VehicleProperty::PERF_VEHICLE_SPEED",
+      "defaultValue": { "floatValues": [0.0] },
+      "maxSampleRate": 10.0,
+      "minSampleRate": 1.0
+    }
+  ]
+}

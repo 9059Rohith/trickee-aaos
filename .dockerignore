@@ -1,0 +1,14 @@
+.git
+.venv
+aosp
+android-app
+docs
+tests
+data
+dist
+.github
+__pycache__
+.pytest_cache
+*.pyc
+*.db
+test-results

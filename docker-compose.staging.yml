@@ -1,0 +1,74 @@
+# Single-instance network staging. Supply a real DNS name and external secret files.
+services:
+  cloud:
+    build: .
+    environment:
+      TRICKEE_DEPLOYMENT_MODE: staging
+      TRICKEE_DEMO_MODE: "0"
+      TRICKEE_PUBLIC_URL: https://${TRICKEE_DOMAIN:?Set a staging DNS name}
+      TRICKEE_DB: /app/data/cloud.db
+      TRICKEE_PHONE_GPS_RETENTION_DAYS: ${TRICKEE_PHONE_GPS_RETENTION_DAYS:?Set approved retention}
+      TRICKEE_OPERATOR_KEY_FILE: /run/secrets/operator_key
+      TRICKEE_VEHICLE_KEY_FILE: /run/secrets/vehicle_key
+    secrets:
+      - operator_key
+      - vehicle_key
+    volumes:
+      - trickee_staging_data:/app/data
+    networks:
+      - backend
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 256
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=2)"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+  ingress:
+    image: caddy:2.10.2-alpine
+    environment:
+      TRICKEE_DOMAIN: ${TRICKEE_DOMAIN:?Set a staging DNS name}
+    volumes:
+      - ./staging/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    networks:
+      - backend
+      - public
+    depends_on:
+      cloud:
+        condition: service_healthy
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+secrets:
+  operator_key:
+    file: ${TRICKEE_OPERATOR_KEY_FILE:?Set operator key file path}
+  vehicle_key:
+    file: ${TRICKEE_VEHICLE_KEY_FILE:?Set vehicle key file path}
+
+networks:
+  backend:
+    internal: true
+  public: {}
+
+volumes:
+  trickee_staging_data: {}
+  caddy_data: {}
+  caddy_config: {}

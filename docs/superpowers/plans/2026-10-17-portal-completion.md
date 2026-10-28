@@ -1,0 +1,11 @@
+# Portal completion execution plan
+
+Preserve Trickee, FastAPI/SQLite, fleet cockpit, driver PWA and native Android/AAOS clients. There are two web portals, not three. Fleet admin/operator/viewer are permissions within one portal. AAOS is a constrained native driving surface, not an account administration portal.
+
+1. Audit actual capabilities and retain all existing verified workflows. Record the requested 30 shared capabilities and 30 role capabilities without inventing duplicate portals or counting placeholders as implemented.
+2. Add a durable personal workspace store and authorized API router: personal calendar events (timezone-aware dates, optimistic revisions, month/week/day/agenda queries), preferences, due reminders, per-user notification read/archive state, persistent assistant conversations, idempotent messages and actual-data daily summaries. Principal scope includes tenant, actor, role and current driver assignment. No client-supplied identity or role.
+3. Reuse shared browser assets to expose calendar CRUD/views, reminders, notification management, preferences, assistant/history/search/export and contextual help on both web clients. Guard asynchronous responses across credential changes. Preserve existing credentials and data; show honest offline/retry states.
+4. Add explicit account access/recovery discovery for configured identity-provider URLs. Existing keys have no passwords to reset: lost driver credentials require an administrator to issue/revoke; OIDC passwords/verification/registration belong to the identity provider. Never mint insecure reset links or claim unconfigured email delivery.
+5. Test store/API authorization, role/tenant/driver isolation, validation, concurrency, persistence, reminders, assistant safety, retries and browser workflows. Review implementation, run full regression/build/container profile against unchanged source, audit accessibility and dependencies, and capture exact production blockers.
+
+Deployment remains gated by real release evidence. Do not mark hardware/provider/security/signing/public infrastructure gates as passed from local tests. No destructive changes to production data, no fabricated third portal and no simulated email/AI presented as a live integration.

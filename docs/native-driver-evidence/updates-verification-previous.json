@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-10-10T21:01:21.706819+00:00",
+  "api_level": "36",
+  "apk_sha256": "f852070172e0dc88905baf923da52ac8a0052bc0ec74df713f899de24542531f",
+  "advisory_updated_in_foreground": true,
+  "dispatch_updated_in_foreground": true,
+  "service_case_updated_in_foreground": true,
+  "inbox_caught_up_after_resume": true,
+  "revoked_credential_cleared": true
+}

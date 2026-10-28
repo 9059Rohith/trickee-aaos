@@ -1,0 +1,11 @@
+services:
+  cloud:
+    build: .
+    env_file: .env
+    ports:
+      - "127.0.0.1:${TRICKEE_PORT:-8000}:8000"
+    volumes:
+      - trickee_data:/app/data
+    restart: unless-stopped
+volumes:
+  trickee_data:

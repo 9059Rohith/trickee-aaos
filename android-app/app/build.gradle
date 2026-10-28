@@ -1,0 +1,27 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.trickee.vehicleos'
+    compileSdk 37
+
+    defaultConfig {
+        applicationId 'com.trickee.vehicleos'
+        minSdk 29
+        targetSdk 37
+        versionCode 1
+        versionName '0.1.0'
+    }
+    buildFeatures { buildConfig true }
+    buildTypes {
+        debug { }
+        release { minifyEnabled false }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    compileOnly files("${androidComponents.sdkComponents.sdkDirectory.get().asFile}/platforms/android-37.0/optional/android.car.jar")
+}

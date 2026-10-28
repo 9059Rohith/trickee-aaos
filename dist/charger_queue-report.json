@@ -1,0 +1,94 @@
+{
+  "task": "CHARGER_QUEUE",
+  "training_count": 960,
+  "training_source": "SIMULATED",
+  "original": {
+    "status": "MEASURED",
+    "sample_count": 120,
+    "mae": 4.0206,
+    "rmse": 4.9312,
+    "median_absolute_error": 3.525,
+    "p90_absolute_error": 8.289,
+    "bias": -1.7853,
+    "mape_pct": 38.2514,
+    "by_charger_class": {
+      "AC": {
+        "status": "MEASURED",
+        "sample_count": 40,
+        "mae": 4.3137,
+        "rmse": 5.1725,
+        "median_absolute_error": 3.93,
+        "p90_absolute_error": 7.916,
+        "bias": -1.1692,
+        "mape_pct": 24.6739
+      },
+      "HPC": {
+        "status": "MEASURED",
+        "sample_count": 40,
+        "mae": 4.798,
+        "rmse": 5.8141,
+        "median_absolute_error": 4.175,
+        "p90_absolute_error": 9.265,
+        "bias": -3.3665,
+        "mape_pct": 53.4201
+      },
+      "DC": {
+        "status": "MEASURED",
+        "sample_count": 40,
+        "mae": 2.95,
+        "rmse": 3.5201,
+        "median_absolute_error": 2.445,
+        "p90_absolute_error": 5.464,
+        "bias": -0.82,
+        "mape_pct": 37.0396
+      }
+    },
+    "source": "SIMULATED",
+    "field_verified": false
+  },
+  "group_baseline": {
+    "status": "MEASURED",
+    "sample_count": 120,
+    "mae": 3.5721,
+    "rmse": 4.4848,
+    "median_absolute_error": 2.94,
+    "p90_absolute_error": 7.5662,
+    "bias": -0.5752,
+    "mape_pct": 40.1025,
+    "by_charger_class": {
+      "AC": {
+        "status": "MEASURED",
+        "sample_count": 40,
+        "mae": 4.7963,
+        "rmse": 5.7845,
+        "median_absolute_error": 3.8859,
+        "p90_absolute_error": 9.3706,
+        "bias": -2.8402,
+        "mape_pct": 25.0924
+      },
+      "HPC": {
+        "status": "MEASURED",
+        "sample_count": 40,
+        "mae": 3.1871,
+        "rmse": 3.8578,
+        "median_absolute_error": 2.897,
+        "p90_absolute_error": 6.2003,
+        "bias": 1.3281,
+        "mape_pct": 58.1432
+      },
+      "DC": {
+        "status": "MEASURED",
+        "sample_count": 40,
+        "mae": 2.7331,
+        "rmse": 3.4637,
+        "median_absolute_error": 1.805,
+        "p90_absolute_error": 5.7642,
+        "bias": -0.2136,
+        "mape_pct": 37.523
+      }
+    },
+    "source": "SIMULATED",
+    "field_verified": false
+  },
+  "test_rows": 120
+}

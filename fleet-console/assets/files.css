@@ -1,0 +1,67 @@
+.files-dialog {
+  width: min(760px, calc(100vw - 2rem));
+  max-height: 85dvh;
+  overflow: auto;
+}
+.files-dialog form {
+  display: flex;
+  gap: 0.75rem;
+  align-items: end;
+  flex-wrap: wrap;
+  margin-block: 1rem;
+}
+.files-dialog label {
+  display: grid;
+  gap: 0.35rem;
+  flex: 1;
+  min-width: 10rem;
+}
+.files-dialog input {
+  max-width: 100%;
+}
+.files-dialog ul {
+  list-style: none;
+  padding: 0;
+}
+.files-dialog li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border, #7b879855);
+}
+.files-dialog li span {
+  flex: 1;
+  overflow-wrap: anywhere;
+  min-width: 10rem;
+}
+.files-paging {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+.files-dialog img {
+  max-width: 100%;
+  max-height: 45vh;
+  object-fit: contain;
+}
+.files-dialog pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 45vh;
+  overflow: auto;
+}
+.files-dialog button:focus-visible,
+.files-dialog input:focus-visible {
+  outline: 3px solid var(--accent, #5588ff);
+  outline-offset: 3px;
+}
+@media (max-width: 550px) {
+  .files-dialog {
+    padding: 1rem;
+  }
+  .files-dialog li span {
+    flex-basis: 100%;
+  }
+}

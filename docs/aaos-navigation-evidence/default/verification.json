@@ -1,0 +1,25 @@
+{
+  "serial": "emulator-5554",
+  "api_level": "35",
+  "host_package": "com.google.android.apps.automotive.templates.host",
+  "apk_sha256": "14a070b81f44778e9a0766e1d682dc0e0e348cdf211d042195a58112e9d51a34",
+  "launch": {
+    "path": "launch.png",
+    "bytes": 33167,
+    "sha256": "c287d18d3eecb712991f4823cc851cea64108b80487d65456451d3536062940f"
+  },
+  "valid_coordinate_intent": {
+    "path": "valid-intent.png",
+    "bytes": 37998,
+    "sha256": "2bf66167a5594fb75e106428e447aa041a33af553ecd7b1e0b269f58744f41bc"
+  },
+  "unsupported_search_intent": {
+    "path": "unsupported-intent.png",
+    "bytes": 39303,
+    "sha256": "efa83db1fd39abde6ce6c61a7ccbc9e060ba1c2f9d9f1402e0d3121e03e6acac"
+  },
+  "fixture_route_preview": null,
+  "template_host_errors": 0,
+  "scope": "host rendering, intent handling and optional synthetic route preview; no production provider or live guidance",
+  "source_commit": "7d7bb7815e878e5aa25e053e46ed07d04b20ae9a"
+}

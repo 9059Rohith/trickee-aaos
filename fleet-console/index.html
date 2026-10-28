@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#03070b">
+  <meta name="description" content="Trickee Vehicle OS simulator fleet cockpit">
+  <title>Trickee Vehicle OS · Fleet cockpit</title>
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('trickee-theme')==='light'?'light':'dark'}catch{document.documentElement.dataset.theme='dark'}</script>
+  <link rel="preload" href="/assets/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/syne-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/leaflet/leaflet.css">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/assets/workspace.css">
+  <link rel="stylesheet" href="/assets/personal.css">
+  <link rel="stylesheet" href="/assets/navigation.css">
+  <link rel="stylesheet" href="/assets/files.css">
+  <script src="/assets/leaflet/leaflet.js" defer></script>
+  <script src="/map.js" defer></script>
+  <script src="/app.js" defer></script>
+  <script src="/assets/workspace.js" defer></script>
+  <script src="/assets/personal.js" defer></script>
+  <script src="/assets/navigation.js" defer></script>
+  <script src="/assets/files.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#fleet">Skip to fleet data</a>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Trickee Vehicle OS home">
+      <img id="brandLogo" src="/assets/trickee-logo.png" alt="" width="46" height="46">
+      <span><strong>TRICKEE</strong><small>VEHICLE OS</small></span>
+    </a>
+    <nav class="site-nav" aria-label="Cockpit sections">
+      <a href="#fleet">Fleet</a><a href="#twin">Digital twin</a><a href="#map">Map</a><a href="#trips">Trips</a><a href="#dailyPlans">Daily plans</a><a href="#insights">Insights</a><a href="#route">Intelligence</a><a href="#copilot">Copilot</a>
+    </nav>
+    <div class="topbar-right">
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false">
+        <svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.5A8.3 8.3 0 0 1 8.5 4 8.3 8.3 0 1 0 20 15.5Z"/></svg>
+        <span class="theme-orb" aria-hidden="true"></span>
+      </button>
+      <span class="mode">SIMULATOR</span><span id="connection" class="connection" role="status">DISCONNECTED</span>
+    </div>
+  <button id="workspaceJump" class="workspace-jump" type="button" aria-haspopup="dialog" aria-controls="workspaceDialog" disabled>Jump to…</button></header>
+  <main id="top">
+    <section class="intro" aria-labelledby="intro-title">
+      <img class="hero-image" src="/assets/hero-fleet.png" alt="Electric fleet vehicle on a blue-hour road" fetchpriority="high">
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-copy reveal">
+        <p class="eyebrow">TRICKEE / VEHICLE OS</p>
+        <h1 id="intro-title">Every vehicle,<br><span>understood.</span></h1>
+        <p class="lede">Live fleet awareness from a deterministic virtual vehicle. Every synthetic value is labeled.</p>
+      </div>
+      <div class="access reveal">
+        <label for="operatorAuthType">OPERATOR ACCESS</label>
+        <select id="operatorAuthType" aria-label="Operator authentication type"><option value="key">Operator key</option><option value="token">Signed access token</option></select>
+        <div class="access-row"><input id="operatorKey" type="password" autocomplete="off" placeholder="Enter operator key" aria-label="Operator credential"><button id="connectBtn" type="button">Connect <span aria-hidden="true">↗</span></button><button id="disconnectBtn" class="quiet" type="button">Disconnect</button></div>
+        <small>Stored only in this browser tab. Access tokens require a configured identity provider; this field does not perform sign-in. Demo key is in the local run guide.</small>
+        <p id="error" role="alert"></p><a href="/account-access">Account access &amp; recovery</a>
+      </div>
+      <svg class="hero-route" viewBox="0 0 1440 135" preserveAspectRatio="none" aria-hidden="true"><path class="route-halo" d="M0 118 C230 64 320 145 535 88 S850 12 1040 72 S1300 117 1440 18"/><path class="route-core" d="M0 118 C230 64 320 145 535 88 S850 12 1040 72 S1300 117 1440 18"/></svg>
+    </section>
+
+    <section class="metrics reveal" aria-label="Fleet overview">
+      <article><span>Vehicles</span><strong id="mVehicles">—</strong></article>
+      <article><span>Online</span><strong id="mOnline">—</strong></article>
+      <article><span>Low battery</span><strong id="mLow">—</strong></article>
+      <article><span>Charging</span><strong id="mCharging">—</strong></article>
+      <article><span>Health alerts</span><strong id="mAlerts">—</strong></article>
+      <article><span>Driver cases</span><strong id="mServiceCases">—</strong></article>
+    </section>
+
+    <div class="layout">
+      <section id="fleet" class="panel fleet-panel reveal"><div class="panel-heading"><div><p class="eyebrow">01 / FLEET</p><h2>Vehicles</h2></div><button id="refreshBtn" class="ghost" type="button">Refresh <span aria-hidden="true">↗</span></button></div>
+        <div class="vehicle-filters"><label for="vehicleSearch">Find vehicle<input id="vehicleSearch" type="search" autocomplete="off" placeholder="Vehicle ID or signal quality"></label><label for="vehicleStateFilter">State<select id="vehicleStateFilter"><option value="">All states</option><option value="PARKED">Parked</option><option value="IGNITION_ON">Ignition on</option><option value="DRIVING">Driving</option><option value="STOPPED">Stopped</option><option value="CHARGING">Charging</option><option value="CHARGING_COMPLETE">Charging complete</option><option value="FAULT">Fault</option><option value="UPDATING">Updating</option><option value="OFFLINE">Offline</option><option value="UNKNOWN">Unknown</option></select></label><button id="clearVehicleFilters" class="ghost" type="button">Clear filters</button></div>
+        <p id="vehicleFilterCount" class="workspace-help" role="status"></p><div id="vehicleList" class="vehicle-list"><p class="empty">Connect to load vehicles.</p></div></section>
+      <section id="twin" class="panel detail-panel reveal"><div class="panel-heading"><div><p class="eyebrow">02 / DIGITAL TWIN</p><h2 id="vehicleTitle">Select a vehicle</h2></div><span id="quality" class="badge">NO DATA</span></div>
+        <div id="drivingBanner" class="driving-banner" hidden>DRIVING · Route entry is disabled. Use read-only information.</div>
+        <div class="battery-hero"><div><span class="label">BATTERY CHARGE</span><div class="charge"><strong id="soc">—</strong><span>%</span></div><div class="charge-track" role="group" aria-label="Battery charge unavailable"><div id="chargeBar"></div></div></div><div class="battery-meta"><p><span>STATE</span><strong id="state">—</strong></p><p><span>HEALTH</span><strong id="health">—</strong></p><p><span>OBSERVED</span><strong id="observed">—</strong></p></div></div>
+        <div class="detail-grid"><p><span>SOH</span><strong id="soh">—</strong></p><p><span>LOCATION</span><strong id="location">—</strong></p><p><span>SOFTWARE</span><strong id="software">—</strong></p><p><span>DRIVER</span><strong id="driver">—</strong></p></div>
+        <div id="alert" class="alert" hidden></div>
+        <div id="driverProvision" class="driver-provision" hidden><p class="eyebrow">DRIVER ACCESS</p><p class="muted">Issue a one-time driver credential for the assigned driver. Issuing another credential revokes the previous one. The driver companion is at <a href="/driver">/driver</a>.</p><button id="issueDriverCredential" class="secondary" type="button">Issue driver credential</button><div id="driverCredentialResult" class="driver-credential-result" role="status" aria-live="polite"></div><div id="driverCredentialList" class="driver-credential-list" aria-label="Issued driver credentials" role="group"></div></div>
+      </section>
+    </div>
+
+    <section id="map" class="panel map-panel reveal" aria-labelledby="mapTitle">
+      <div class="panel-heading"><div><p class="eyebrow">03 / FLEET MAP</p><h2 id="mapTitle">Vehicle locations</h2></div><span class="badge">REPORTED GPS</span></div>
+      <p id="mapStatus" class="map-status" role="status">Connect to load reported vehicle locations.</p>
+      <div id="mapCanvas" class="map-canvas" aria-label="Fleet vehicle map" role="group"></div>
+      <div id="mapVehicleList" class="map-vehicle-list" aria-label="Vehicles with reported locations" role="group"></div>
+    </section>
+
+    <section id="trips" class="panel trip-panel reveal" aria-labelledby="tripsTitle">
+      <div class="panel-heading"><div><p class="eyebrow">04 / TRIPS</p><h2 id="tripsTitle">Trip history</h2></div><span class="badge">REPORTED / MANUAL</span></div>
+      <p id="tripStatus" class="map-status" role="status">Select a vehicle to view trips.</p>
+      <div class="trip-actions">
+        <label>Start charge, if manually confirmed <input id="startSoc" type="number" min="0" max="100" step="any" placeholder="Optional %"></label>
+        <button id="startTrip" class="secondary" type="button">Start supervised trip</button>
+        <label>End charge, if manually confirmed <input id="endSoc" type="number" min="0" max="100" step="any" placeholder="Optional %"></label>
+        <button id="endTrip" class="secondary" type="button" disabled>Complete selected trip</button>
+      </div>
+      <p class="route-hint">Manual charge entries are kept separate from vehicle telemetry. This operator workflow does not control the vehicle.</p>
+      <div class="trip-layout"><div id="tripList" class="trip-list" aria-label="Vehicle trips" role="group"><p class="empty">No trips loaded.</p></div><div id="tripDetail" class="trip-detail" aria-live="polite">Select a trip to review its provenance and trace.</div></div>
+    </section>
+
+    <section id="dailyPlans" class="panel daily-plan-panel reveal" aria-labelledby="dailyPlansTitle">
+      <div class="panel-heading"><div><p class="eyebrow">05 / DAILY PLANS</p><h2 id="dailyPlansTitle">Plan the day</h2></div><span class="badge">OPERATOR SUPERVISED</span></div>
+      <p id="dailyPlanStatus" class="map-status" role="status">Select a vehicle to review saved plans.</p>
+      <form id="dailyPlanForm" class="daily-plan-form">
+        <label>Service date <input id="dailyDate" type="date" required></label>
+        <label>Timezone <input id="dailyTimezone" value="Asia/Kolkata" required></label>
+        <label>Confirmed starting charge <input id="dailySoc" type="number" min="0" max="100" step="any" placeholder="%" required></label>
+        <label>Origin coordinates <input id="dailyOrigin" placeholder="12.9716, 77.5946" required></label>
+        <label class="daily-stops-label">Stops · one per line: time | name | latitude, longitude<textarea id="dailyStops" rows="4" placeholder="09:00 | Office | 12.9800, 77.6000&#10;12:30 | Client | 13.0000, 77.6200" required></textarea></label>
+        <button id="saveDailyPlan" type="submit">Save draft <span aria-hidden="true">↗</span></button>
+        <button id="cancelDailyPlanEdit" class="secondary" type="button" hidden>Cancel edit</button>
+      </form>
+      <form id="dailyPlaceForm" class="daily-place-form" aria-label="Find a daily plan place">
+        <label>Find a plan place <input id="dailyPlaceQuery" placeholder="Search by address or landmark" autocomplete="off" required minlength="3"></label>
+        <label>Arrival time for a new stop <input id="dailyPlaceTime" type="time" value="09:00" required></label>
+        <button id="dailyPlaceSearch" class="secondary" type="submit">Search places</button>
+      </form>
+      <p id="dailyPlaceStatus" class="route-hint" role="status">Place search needs a configured provider. Select a result to set the origin or add a stop.</p>
+      <div id="dailyPlaceResults" class="place-results" aria-label="Daily plan place results" role="group"></div>
+      <p class="route-hint">Enter confirmed map pins and charge. Road distance, departure time and energy appear only when a road provider is configured; traffic and live charger status remain unavailable.</p>
+      <div class="trip-layout"><div id="dailyPlanList" class="trip-list" aria-label="Saved daily plans" role="group"><p class="empty">No plans loaded.</p></div><div id="dailyPlanDetail" class="trip-detail" aria-live="polite">Select a plan to review it and confirm.</div></div>
+      <div class="driver-advisories"><h3>Driver advisories</h3><p class="route-hint">Send an advisory to the assigned driver's browser inbox. It appears when the driver refreshes or keeps the companion open. This does not control the vehicle or send a push notification.</p><form id="nudgeForm" class="nudge-form"><label>Advisory type <select id="nudgeKind"><option value="DEPARTURE">Departure</option><option value="CHARGING">Charging</option><option value="ROUTE_REVIEW">Route review</option></select></label><label>Message <textarea id="nudgeMessage" maxlength="280" rows="2" placeholder="Give a short, actionable instruction" required></textarea></label><button id="sendNudge" class="secondary" type="submit" disabled>Send advisory</button></form><p id="nudgeStatus" class="route-hint" role="status">Select a vehicle to review advisories.</p><div id="nudgeList" class="nudge-list" aria-label="Driver advisory history" role="group"></div></div>
+      <div class="driver-advisories" id="dispatchWorkspace"><h3>Pickup proposals</h3><p class="route-hint">Send a manual pickup and destination proposal to the assigned driver. Acceptance records the driver's decision; it does not create a partner order, start a trip, or control the vehicle. Confirm addresses and availability before sending.</p><form id="dispatchForm" class="nudge-form"><label>Pickup name <input id="dispatchPickupLabel" maxlength="160" required placeholder="Pickup landmark or address"></label><label>Pickup latitude, longitude <input id="dispatchPickup" required placeholder="12.9716, 77.5946"></label><label>Destination name <input id="dispatchDestinationLabel" maxlength="160" required placeholder="Drop landmark or address"></label><label>Destination latitude, longitude <input id="dispatchDestination" required placeholder="12.9916, 77.6146"></label><label>Driver message <textarea id="dispatchMessage" maxlength="500" rows="2" required placeholder="Pickup details and what to check"></textarea></label><label>Reference (optional) <input id="dispatchReference" maxlength="100" placeholder="Your manual reference"></label><label>Expires after <select id="dispatchExpiry"><option value="15">15 minutes</option><option value="30" selected>30 minutes</option><option value="60">1 hour</option><option value="120">2 hours</option></select></label><button id="sendDispatch" class="secondary" type="submit" disabled>Send proposal</button></form><p id="dispatchStatus" class="route-hint" role="status">Select a vehicle to review pickup proposals.</p><div id="dispatchList" class="nudge-list" aria-label="Pickup proposal history" role="group"></div><h3>Internal assignments</h3><p class="route-hint">Confirm an accepted proposal as an internal assignment. Pickup and delivery are driver reports; only an operator can mark a report manually reconciled. This does not verify an external partner order.</p><p id="orderStatus" class="route-hint" role="status">Select a vehicle to review assignments.</p><div id="orderList" class="nudge-list" aria-label="Internal assignment history" role="group"></div><h3>Partner order feed</h3><p class="route-hint">Mirrored provider records are for review only. They do not assign a driver or verify fulfilment.</p><p id="partnerOrderStatus" class="route-hint" role="status">Connect to review imported partner records.</p><div id="partnerOrderList" class="nudge-list" aria-label="Partner order feed" role="group"></div></div>
+      <div class="driver-advisories" id="serviceWorkspace"><h3>Driver service cases</h3><p class="route-hint">Review issues reported by the assigned driver. Acknowledge, reply with a practical next step, and record the resolution. Urgent reports still need your normal emergency and roadside procedures.</p><p id="serviceStatus" class="route-hint" role="status">Select a vehicle to review driver service cases.</p><div id="serviceList" class="nudge-list" aria-label="Driver service case history" role="group"></div></div>
+    </section>
+
+    <section id="auditWorkspace" class="panel reveal" aria-labelledby="auditTitle" hidden><div class="panel-heading"><div><p class="eyebrow">OPERATOR AUDIT</p><h2 id="auditTitle">Vehicle action history</h2></div><span class="badge">ADMIN</span></div><p class="route-hint">Review bounded, vehicle-scoped action records. Records describe application commands; they are not proof of physical delivery or vehicle movement.</p><div class="actions"><button id="loadAudit" class="secondary" type="button">Load audit</button><button id="moreAudit" class="quiet" type="button" hidden>Older events</button></div><p id="auditStatus" class="route-hint" role="status">Select a vehicle and load its audit trail.</p><div id="auditList" class="nudge-list" aria-label="Vehicle audit events" role="group"></div></section>
+    <section id="chargingRecordsWorkspace" class="panel reveal" aria-labelledby="chargingRecordsTitle" hidden><div class="panel-heading"><div><p class="eyebrow">PROVIDER CHARGING DATA</p><h2 id="chargingRecordsTitle">Sessions and charge records</h2></div><span class="badge">ADMIN</span></div><p class="route-hint">Only records explicitly scoped to your operator tenant appear here. Costs and energy come from the provider; payment, driver identity and vehicle assignment are not verified. Active sessions older than 15 minutes are marked stale.</p><button id="loadChargingRecords" class="secondary" type="button">Load charging records</button><p id="chargingRecordsStatus" class="route-hint" role="status">Load provider charging records after an operator sync.</p><div id="chargingRecordsList" class="nudge-list" aria-label="Provider charging sessions and CDRs" role="group"></div></section>
+    <section id="insights" class="panel insights-panel reveal" aria-labelledby="insightsTitle">
+      <div class="panel-heading"><div><p class="eyebrow">06 / FLEET INSIGHTS</p><h2 id="insightsTitle">Signals and alerts</h2></div><span id="reportQuality" class="badge">NO DATA</span></div>
+      <p id="insightsStatus" class="map-status" role="status">Connect to load stored signal statistics.</p>
+      <div class="insight-metrics">
+        <p><span>TELEMETRY FRAMES / 7 DAYS</span><strong id="reportFrames">—</strong></p>
+        <p><span>AVERAGE REPORTED CHARGE</span><strong id="reportSoc">—</strong></p>
+        <p><span>AVERAGE REPORTED SPEED</span><strong id="reportSpeed">—</strong></p>
+        <p><span>LOW CHARGE FRAMES</span><strong id="reportLow">—</strong></p>
+      </div>
+      <div class="daily-operations"><h3>Daily operations</h3><p class="route-hint">Trip starts and driver-reported stop times for the selected local day. Energy, delivered orders and money saved stay unknown without measured evidence.</p><form id="dailyOperationsForm" class="daily-place-form"><label>Local date <input id="operationsDate" type="date" required></label><label>Timezone <input id="operationsTimezone" value="Asia/Kolkata" required></label><button id="loadDailyOperations" class="secondary" type="submit">Load daily operations</button></form><div id="dailyOperationsResult" class="decision-result" role="status">Choose a local day to review recorded operations.</div></div>
+      <p class="route-hint">Driver behavior score is unavailable until validated behavior signals exist. Alerts are rule-based observations, not diagnoses.</p>
+      <div class="decision-preview"><h3>Fleet decision preview</h3><p class="route-hint">Compare assigned drivers for a pickup and delivery. Recommendations require fresh vehicle signals and a configured road router; nothing is assigned automatically.</p>
+        <form id="decisionPreviewForm" class="daily-place-form"><label>Pickup latitude, longitude <input id="decisionPickup" placeholder="12.9800, 77.6000" required></label><label>Destination latitude, longitude <input id="decisionDestination" placeholder="13.0000, 77.6200" required></label><label>Preparation minutes <input id="decisionPrep" type="number" min="0" max="240" value="20" required></label><button id="runDecisionPreview" class="secondary" type="submit">Preview assignment</button></form>
+        <div id="decisionResult" class="decision-result" role="status">Enter confirmed pins to preview an advisory decision.</div>
+      </div>
+      <div id="fleetAlerts" class="fleet-alerts" aria-label="Fleet alerts" role="group"><p class="empty">No alerts loaded.</p></div>
+      <details class="alert-history"><summary>Vehicle notifications <span id="notificationCount">0</span></summary><div id="fleetNotifications" class="fleet-alerts" aria-label="Vehicle notifications" role="group"></div></details>
+      <details class="alert-history"><summary>Incident history</summary><div id="fleetAlertHistory" class="fleet-alerts" aria-label="Fleet incident history" role="group"></div></details>
+    </section>
+
+    <div class="layout lower">
+      <section id="route" class="panel reveal"><div class="panel-heading"><div><p class="eyebrow">06 / INTELLIGENCE</p><h2>Route &amp; energy</h2></div><span class="badge">ESTIMATED</span></div>
+        <form id="placeSearchForm" class="place-search-form"><input id="placeQuery" minlength="3" maxlength="160" placeholder="Search a place with configured provider" aria-label="Place search query" required><button id="placeSearchBtn" class="secondary" type="submit">Search places</button></form>
+        <div id="placeResults" class="place-results" aria-live="polite">Place search requires a configured provider. Submit a query to search.</div>
+        <div class="route-lookup"><input id="origin" value="Bengaluru" aria-label="Origin"><input id="destination" value="Hosur" aria-label="Destination"><button id="findRoute" class="secondary" type="button">Find mock route</button><button id="roadRouteBtn" class="secondary" type="button">Find road route</button></div>
+        <p class="route-hint">For road routing, enter both endpoints as latitude, longitude. A configured road provider is required. Traffic remains unavailable.</p>
+        <div id="routeOptions" class="route-options" aria-label="Road route alternatives" role="group"></div>
+        <p id="routeContext" class="route-hint" role="status" aria-live="polite">Weather and elevation require configured providers.</p>
+        <form id="planForm" class="plan-form"><label>Distance <input id="distance" type="number" min="1" max="3000" step="any" value="91" required> <span>km</span></label><label>Map baseline <input id="eta" type="number" min="1" step="any" value="95" required> <span>min</span></label><label>Average speed <input id="speed" type="number" min="1" max="160" step="any" value="58" required> <span>km/h</span></label><label>Traffic factor <input id="traffic" type="number" min="0.5" max="3" step="0.1" value="1.1" required></label><button type="submit">Calculate route <span aria-hidden="true">↗</span></button></form>
+        <div id="planResult" class="result" role="status" aria-live="polite">Select a vehicle and calculate a route.</div>
+      </section>
+      <section id="copilot" class="panel reveal"><div class="panel-heading"><div><p class="eyebrow">07 / COPILOT</p><h2>Grounded answers</h2></div><span class="badge">READ ONLY</span></div><p class="muted">Ask about battery, arrival charge, chargers, or vehicle health. Control requests are denied.</p><form id="copilotForm" class="copilot-form"><input id="question" placeholder="Can I reach the charger?" maxlength="300" aria-label="Ask the copilot"><button type="submit">Ask <span aria-hidden="true">↗</span></button></form><div id="copilotResult" class="result" role="status" aria-live="polite">Responses are calculated from vehicle tools.</div></section>
+    </div>
+    <footer><span>TRICKEE VEHICLE OS / SIMULATOR</span><span>Built on Android Automotive OS architecture · No physical vehicle connected</span></footer>
+  </main>
+</body>
+</html>

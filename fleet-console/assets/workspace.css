@@ -1,0 +1,34 @@
+/* Motion roles shared across operational clients. */
+:root{--motion-fast:140ms;--motion-normal:240ms;--motion-enter:320ms;--motion-ease:cubic-bezier(.16,1,.3,1);--motion-distance:8px}
+.workspace-jump{font:700 12px Manrope,system-ui,sans-serif;white-space:nowrap;min-height:44px;flex-shrink:0;padding:10px 14px}
+.workspace-dialog{color:var(--text);background:var(--panel,#0b141c);border:1px solid var(--line);border-radius:12px;width:min(540px,calc(100% - 32px));max-height:calc(100dvh - 48px);padding:24px;overflow:auto;box-shadow:0 24px 90px #0008}
+.workspace-dialog[open]{animation:workspace-enter var(--motion-enter) var(--motion-ease) both}
+.workspace-dialog::backdrop{background:#020609bd;animation:workspace-fade var(--motion-fast) ease both}
+.workspace-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}
+.workspace-heading h2{font:700 24px Syne,system-ui,sans-serif;margin:0}
+.workspace-heading button{background:transparent;color:var(--text);border:1px solid var(--line);font:700 12px Manrope,sans-serif}
+.workspace-dialog label{font:600 13px Manrope,sans-serif;display:block;margin-bottom:8px}
+.workspace-dialog input[type=search]{display:block;width:100%;font:400 16px Manrope,sans-serif;margin-bottom:16px;min-height:44px}
+.workspace-dialog nav{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.workspace-dialog nav a{min-height:44px;padding:12px;border-radius:4px;color:var(--text);text-decoration:none;font:600 13px Manrope,sans-serif;transition:background-color var(--motion-fast) ease}
+.workspace-dialog nav a:hover{background:color-mix(in srgb,var(--cyan) 12%,transparent)}
+.workspace-dialog [hidden]{display:none!important}
+.workspace-dialog .workspace-preference{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:18px;margin-top:18px;min-height:44px}
+.workspace-preference input{width:20px;height:20px;accent-color:var(--yellow)}
+.workspace-help{color:var(--muted);font:400 12px/1.6 Manrope,sans-serif;margin:0}
+:is(a,button,input,textarea,select,summary):focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+main .panel{scroll-margin-top:120px}
+.vehicle-filters{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-bottom:12px}
+.vehicle-filters label{flex:1;min-width:130px;font:600 12px Manrope,sans-serif;color:var(--muted)}
+.vehicle-filters input,.vehicle-filters select{display:block;width:100%;min-height:44px;margin-top:8px;font:400 14px Manrope,sans-serif}
+.vehicle-filters button{min-height:44px}
+html[data-theme=light] select,html[data-theme=light] select option{background:#fff;color:#18170f}
+html[data-theme=light] input:not([type=checkbox]),html[data-theme=light] textarea{background:#fff;color:#18170f;border-color:#b4aa78}
+@media(max-width:1700px){.topbar .site-nav{display:none}}
+@keyframes workspace-enter{from{opacity:0;transform:translateY(var(--motion-distance)) scale(.985)}to{opacity:1;transform:none}}
+@keyframes workspace-fade{from{opacity:0}to{opacity:1}}
+html[data-motion=reduced]{scroll-behavior:auto!important}
+html[data-motion=reduced] .hero-route path{stroke-dashoffset:0}
+html[data-motion=reduced] *,html[data-motion=reduced] *::before,html[data-motion=reduced] *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media(max-width:580px){.workspace-dialog{padding:18px}.workspace-dialog nav{grid-template-columns:1fr}.topbar{flex-wrap:wrap}.workspace-jump{margin-left:auto}.topbar-right{margin-left:auto}}

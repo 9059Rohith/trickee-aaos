@@ -1,0 +1,71 @@
+{
+  "serial": "emulator-5554",
+  "api_level": "35",
+  "host_package": "com.google.android.apps.automotive.templates.host",
+  "apk_sha256": "05a5f937b088d2adeaa4554c55fd7ef8b64f599a3349024c89517084b9a8eb70",
+  "launch": {
+    "path": "launch.png",
+    "bytes": 39192,
+    "width": 1080,
+    "height": 600,
+    "sha256": "4dcf02dbddc100603cc36d4e43d65bd918689fd820147aa018a0a1ff046823cd"
+  },
+  "valid_coordinate_intent": {
+    "path": "valid-intent.png",
+    "bytes": 51188,
+    "width": 1080,
+    "height": 600,
+    "sha256": "18d0d895f432e1f32853689dabd1bc083f61cf163e70ff494efee5279fed282d"
+  },
+  "unsupported_search_intent": {
+    "path": "unsupported-intent.png",
+    "bytes": 40178,
+    "width": 1080,
+    "height": 600,
+    "sha256": "423cb5ad1bd10e25f53d1ddfe8b07cc49c6ba9f7ca471917aa88fa1c4300d0a7"
+  },
+  "fixture_route_preview": {
+    "path": "route-preview.png",
+    "bytes": 48896,
+    "width": 1080,
+    "height": 600,
+    "sha256": "fd57081e670680df7141f325ddd3099e9481c572d3a690f16756522449bed1c7"
+  },
+  "fixture_active_guidance": {
+    "path": "active-guidance.png",
+    "bytes": 43266,
+    "width": 1080,
+    "height": 600,
+    "sha256": "d9a1775ef1389e345ebc93ac3bf8ea7abfd3653a711fea0d3722d477c284c9c4"
+  },
+  "fixture_location_paused": {
+    "path": "location-paused.png",
+    "bytes": 39932,
+    "width": 1080,
+    "height": 600,
+    "sha256": "497e31575f7c6099c1fd757d2deb4546f6be8763ee4075e11efc9c14027c86e3"
+  },
+  "fixture_location_restored": {
+    "path": "location-restored.png",
+    "bytes": 39438,
+    "width": 1080,
+    "height": 600,
+    "sha256": "8844c1b6a69846bf2ced7d20362fca3f3d215f8b5be703abccd2f14a16dbb9d3"
+  },
+  "fixture_stopped_guidance": {
+    "path": "stopped-guidance.png",
+    "bytes": 48716,
+    "width": 1080,
+    "height": 600,
+    "sha256": "f63be69afcccd003a724f336448c00fb7e1a34b4050b8d6b058a163a2667bf0d"
+  },
+  "fixture_replaced_destination": {
+    "path": "replaced-destination.png",
+    "bytes": 49036,
+    "width": 1080,
+    "height": 600,
+    "sha256": "e960bc38a22dd972de1b458c381c5a14907eb8f97b44d66c519ac71eb6fdda63"
+  },
+  "template_host_errors": 0,
+  "scope": "host rendering, intents, synthetic route preview, foreground guidance start/stop, location pause/recovery and active destination replacement; no production provider, map tiles or field guidance"
+}

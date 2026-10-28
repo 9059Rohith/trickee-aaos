@@ -1,0 +1,10 @@
+{
+  "api_level": "35",
+  "vehicle_id": "TRICKEE-EMU-1791688912",
+  "last_sequence": 1,
+  "source": "CAR_API",
+  "sealed_key": true,
+  "battery_64_pct_uploaded": true,
+  "moving_setup_locked": true,
+  "moving_frame_uploaded": true
+}

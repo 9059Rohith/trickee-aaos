@@ -1,0 +1,70 @@
+{
+  "task": "ETA",
+  "training_count": 960,
+  "training_source": "SIMULATED",
+  "baseline": {
+    "status": "MEASURED",
+    "sample_count": 120,
+    "mae": 9.5264,
+    "rmse": 16.2518,
+    "median_absolute_error": 5.165,
+    "p90_absolute_error": 21.052,
+    "bias": -0.5018,
+    "mape_pct": 6.9505,
+    "map_baseline": {
+      "status": "MEASURED",
+      "sample_count": 120,
+      "mae": 29.1915,
+      "rmse": 52.4157,
+      "median_absolute_error": 12.0,
+      "p90_absolute_error": 84.156,
+      "bias": -25.7573,
+      "mape_pct": 17.3134
+    },
+    "personal_multiplier": {
+      "status": "MEASURED",
+      "sample_count": 120,
+      "mae": 28.4923,
+      "rmse": 50.6745,
+      "median_absolute_error": 13.615,
+      "p90_absolute_error": 79.284,
+      "bias": -25.6975,
+      "mape_pct": 16.2532
+    },
+    "source": "SIMULATED",
+    "field_verified": false
+  },
+  "residual": {
+    "status": "MEASURED",
+    "sample_count": 120,
+    "mae": 8.8686,
+    "rmse": 13.7144,
+    "median_absolute_error": 5.0107,
+    "p90_absolute_error": 18.5145,
+    "bias": 0.8666,
+    "mape_pct": 6.7535,
+    "map_baseline": {
+      "status": "MEASURED",
+      "sample_count": 120,
+      "mae": 29.1915,
+      "rmse": 52.4157,
+      "median_absolute_error": 12.0,
+      "p90_absolute_error": 84.156,
+      "bias": -25.7573,
+      "mape_pct": 17.3134
+    },
+    "personal_multiplier": {
+      "status": "MEASURED",
+      "sample_count": 120,
+      "mae": 28.4923,
+      "rmse": 50.6745,
+      "median_absolute_error": 13.615,
+      "p90_absolute_error": 79.284,
+      "bias": -25.6975,
+      "mape_pct": 16.2532
+    },
+    "source": "SIMULATED",
+    "field_verified": false
+  },
+  "test_rows": 120
+}

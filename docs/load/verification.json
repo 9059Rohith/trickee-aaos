@@ -1,0 +1,10 @@
+{
+  "url": "http://127.0.0.1:64314",
+  "requests": 400,
+  "concurrency": 24,
+  "statuses": {
+    "200": 400
+  },
+  "p95_seconds": 0.073,
+  "max_seconds": 0.08
+}

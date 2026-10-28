@@ -1,0 +1,204 @@
+.personal-launcher {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 45;
+  box-shadow: 0 8px 30px #0005;
+  font:
+    700 12px Manrope,
+    sans-serif;
+}
+.personal-dialog {
+  width: min(1050px, calc(100% - 24px));
+  max-height: calc(100dvh - 32px);
+  scroll-padding-top: 76px;
+}
+.personal-dialog .workspace-heading {
+  position: sticky;
+  top: 0;
+  background: var(--panel);
+  z-index: 2;
+  padding: 8px 0;
+}
+.personal-dialog .personal-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0;
+}
+.personal-tabs button[aria-pressed="false"] {
+  color: var(--text);
+  background: transparent;
+  border-color: var(--line);
+}
+.personal-dialog section[hidden] {
+  display: none !important;
+}
+.personal-dialog h3 {
+  font:
+    700 21px Syne,
+    sans-serif;
+  margin: 24px 0 12px;
+}
+.personal-dialog h4 {
+  font:
+    600 14px Manrope,
+    sans-serif;
+}
+.personal-dialog p {
+  font:
+    400 13px/1.7 Manrope,
+    sans-serif;
+  overflow-wrap: anywhere;
+}
+.personal-dialog form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 20px 0;
+}
+.personal-dialog label {
+  min-width: 0;
+}
+.personal-dialog input:not([type="checkbox"]),
+.personal-dialog textarea,
+.personal-dialog select {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border: 1px solid #36505a;
+  border-radius: 4px;
+  background: #08151b;
+  color: var(--text);
+  font:
+    400 16px Manrope,
+    sans-serif;
+}
+.personal-dialog form .personal-toolbar,
+.personal-dialog #personalChatForm label {
+  grid-column: 1/-1;
+}
+.personal-toolbar {
+  display: flex;
+  align-items: end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.personal-toolbar label {
+  flex: 1;
+  min-width: 140px;
+}
+.personal-toolbar button {
+  flex-shrink: 0;
+}
+.personal-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  max-height: 480px;
+  overflow: auto;
+}
+.personal-calendar > .personal-day {
+  min-width: 0;
+  border: 1px solid var(--line);
+  padding: 8px;
+}
+.personal-day h5 {
+  font:
+    700 11px Manrope,
+    sans-serif;
+  margin: 0 0 8px;
+}
+.personal-event,
+.personal-message {
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 14px;
+  margin: 8px 0;
+  overflow-wrap: anywhere;
+  animation: workspace-enter var(--motion-fast) var(--motion-ease) both;
+}
+.personal-event strong,
+.personal-message strong {
+  font:
+    700 13px Manrope,
+    sans-serif;
+}
+.personal-event button {
+  margin: 4px 5px 0 0;
+  font:
+    700 11px Manrope,
+    sans-serif;
+  padding: 9px;
+}
+.personal-calendar .personal-event {
+  padding: 6px;
+}
+.personal-calendar .personal-event p {
+  font-size: 11px;
+}
+.personal-calendar .personal-event button {
+  width: 100%;
+  margin: 3px 0 0;
+  padding: 6px;
+  font-size: 10px;
+}
+#personalMessages {
+  max-height: 420px;
+  overflow: auto;
+}
+.personal-message small {
+  color: var(--muted);
+  font:
+    400 11px Manrope,
+    sans-serif;
+}
+#personalAccount a {
+  display: inline-block;
+  color: var(--cyan);
+  min-height: 44px;
+  padding: 12px;
+}
+#personalStatus {
+  min-height: 24px;
+  color: var(--cyan);
+}
+#personalDaily {
+  padding: 14px;
+  border-left: 3px solid var(--yellow);
+  background: color-mix(in srgb, var(--cyan) 5%, transparent);
+}
+html[data-theme="light"] .personal-dialog input:not([type="checkbox"]),
+html[data-theme="light"] .personal-dialog textarea,
+html[data-theme="light"] .personal-dialog select {
+  background: #fff;
+  color: #18170f;
+}
+@media (max-width: 760px) {
+  .personal-calendar {
+    grid-template-columns: 1fr 1fr;
+  }
+  .personal-dialog form {
+    grid-template-columns: 1fr;
+  }
+  .personal-launcher {
+    right: 12px;
+    bottom: 12px;
+  }
+  .personal-dialog .workspace-heading h2 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 400px) {
+  .personal-calendar {
+    grid-template-columns: 1fr;
+  }
+  .personal-dialog {
+    padding: 14px;
+  }
+  .personal-tabs button {
+    flex: 1;
+  }
+}

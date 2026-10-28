@@ -1,0 +1,32 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.trickee.navigation'
+    compileSdk 37
+    buildFeatures { resValues true }
+    defaultConfig {
+        applicationId 'com.trickee.navigation'
+        minSdk 29
+        targetSdk 37
+        versionCode 1
+        versionName '0.1.0'
+        resValue 'string', 'trickee_router_url',
+                (project.findProperty('trickeeRouterUrl') ?: System.getenv('TRICKEE_NAV_ROUTER_URL') ?: '').toString()
+    }
+    buildTypes {
+        debug { }
+        release { minifyEnabled false }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.car.app:app:1.7.0'
+    implementation 'androidx.car.app:app-automotive:1.7.0'
+    implementation 'androidx.core:core:1.17.0'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.json:json:20250517'
+}

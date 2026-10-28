@@ -1,0 +1,94 @@
+{
+  "serial": "emulator-5554",
+  "api_level": "35",
+  "host_package": "com.google.android.apps.automotive.templates.host",
+  "apk_sha256": "b4e99ce9f1518a8b9d9b0317f66b60aef41cfa9099a8bb7617cce4adc6ee49ce",
+  "launch": {
+    "path": "launch.png",
+    "bytes": 23891,
+    "width": 1080,
+    "height": 600,
+    "sha256": "4ed3f845a1ced3d32f5e42056381d6d8b593e843c3f5397a789456af6c73dbe7"
+  },
+  "valid_coordinate_intent": {
+    "path": "valid-intent.png",
+    "bytes": 35429,
+    "width": 1080,
+    "height": 600,
+    "sha256": "c6d171b9136036089e5de0ba5a86a42bf15630f85905c14fb7dfbde999eddd05"
+  },
+  "unsupported_search_intent": {
+    "path": "unsupported-intent.png",
+    "bytes": 36442,
+    "width": 1080,
+    "height": 600,
+    "sha256": "c3cfb7197e384db0d82a0d14e39f317ffaadada09237e558d44b274c2c021339"
+  },
+  "fixture_route_preview": {
+    "path": "route-preview.png",
+    "bytes": 39506,
+    "width": 1080,
+    "height": 600,
+    "sha256": "fa0c429501dfa4a59598edfeea3368277f3a8c79c500b68d2e015a5b3e46244f"
+  },
+  "fixture_active_guidance": {
+    "path": "active-guidance.png",
+    "bytes": 40846,
+    "width": 1080,
+    "height": 600,
+    "sha256": "da55e5f09a0c8721c40832d661da78877bebca187103e95d439543ab1cb5fd98"
+  },
+  "fixture_location_paused": {
+    "path": "location-paused.png",
+    "bytes": 37056,
+    "width": 1080,
+    "height": 600,
+    "sha256": "7763fb3e551bcb8723367b8995890a7e4d5fdf3abb6fc952e23dc11c5df34873"
+  },
+  "fixture_location_restored": {
+    "path": "location-restored.png",
+    "bytes": 37190,
+    "width": 1080,
+    "height": 600,
+    "sha256": "c0e5b6963d7c4ea23a5114f5fe09d9dd6cf850e484384924b04d2312b29f8c1c"
+  },
+  "fixture_stopped_guidance": {
+    "path": "stopped-guidance.png",
+    "bytes": 45738,
+    "width": 1080,
+    "height": 600,
+    "sha256": "e8e5bcf80f2f707195de7825eb010591a8070e8d2471faad19231109699e75bb"
+  },
+  "fixture_replaced_destination": {
+    "path": "replaced-destination.png",
+    "bytes": 46047,
+    "width": 1080,
+    "height": 600,
+    "sha256": "46d6cc9a8b9bff89569b754df7069e0f06805c0878635aa5d391e89b84761def"
+  },
+  "fixture_reroute_outage": {
+    "path": "reroute-outage.png",
+    "bytes": 37596,
+    "width": 1080,
+    "height": 600,
+    "sha256": "b6f2594a1eace216ec74f75166d75cc8de671a8b0342c8dbffec7db070589d4a"
+  },
+  "fixture_outage_recovered": {
+    "path": "reroute-outage-recovered.png",
+    "bytes": 37275,
+    "width": 1080,
+    "height": 600,
+    "sha256": "32b420ec0053e8a626f4ecbcebe06930aeb0b230037525bde26d8f20c3d9d17e"
+  },
+  "ongoing_navigation_notice_during_guidance": true,
+  "navigation_notice_after_stop": false,
+  "notice_permission_denied": {
+    "path": "notice-permission-denied.png",
+    "bytes": 39506,
+    "width": 1080,
+    "height": 600,
+    "sha256": "fa0c429501dfa4a59598edfeea3368277f3a8c79c500b68d2e015a5b3e46244f"
+  },
+  "template_host_errors": 0,
+  "scope": "host rendering, intents, synthetic route preview, foreground guidance start/stop, location pause/recovery and active destination replacement, reroute outage/recovery; no production provider, map tiles or field guidance"
+}

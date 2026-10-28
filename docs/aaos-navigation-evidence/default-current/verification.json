@@ -1,0 +1,37 @@
+{
+  "serial": "emulator-5554",
+  "api_level": "35",
+  "host_package": "com.google.android.apps.automotive.templates.host",
+  "apk_sha256": "ed82f4110ae31effb2c2ab418867e2f285427047a785a3366bda3f24c31c1519",
+  "launch": {
+    "path": "launch.png",
+    "bytes": 27592,
+    "width": 1080,
+    "height": 600,
+    "sha256": "1adb06b9a16f6991fecd4742f2cad422108fdd32db9c5adb3f3d91002492f0a8"
+  },
+  "valid_coordinate_intent": {
+    "path": "valid-intent.png",
+    "bytes": 38876,
+    "width": 1080,
+    "height": 600,
+    "sha256": "ebe7b38c507e220538d0d81cd2018087255ed0b7b0ecba534b42a802b0e24777"
+  },
+  "unsupported_search_intent": {
+    "path": "unsupported-intent.png",
+    "bytes": 40189,
+    "width": 1080,
+    "height": 600,
+    "sha256": "8fba52c843e6cc738e8c9d669b43b519149f375beed9e318f22fb1ad6f030afa"
+  },
+  "fixture_route_preview": null,
+  "fixture_active_guidance": null,
+  "fixture_location_paused": null,
+  "fixture_location_restored": null,
+  "fixture_stopped_guidance": null,
+  "fixture_replaced_destination": null,
+  "fixture_reroute_outage": null,
+  "fixture_outage_recovered": null,
+  "template_host_errors": 0,
+  "scope": "host rendering and intents with no configured road provider; no production provider, map tiles or field guidance"
+}

@@ -1,0 +1,770 @@
+{
+  "task": "RANGE",
+  "training_count": 960,
+  "training_source": "SIMULATED",
+  "baseline": {
+    "status": "MEASURED",
+    "sample_count": 120,
+    "mae": 10.7374,
+    "rmse": 15.2985,
+    "median_absolute_error": 7.225,
+    "p90_absolute_error": 26.647,
+    "bias": 7.9819,
+    "mape_pct": 9.244,
+    "interval_sample_count": 120,
+    "interval_coverage": 0.9833,
+    "by_segment": {
+      "vehicle_id": {
+        "CITY-01": {
+          "status": "MEASURED",
+          "sample_count": 60,
+          "mae": 7.8523,
+          "rmse": 11.1198,
+          "median_absolute_error": 4.895,
+          "p90_absolute_error": 17.406,
+          "bias": 5.674,
+          "mape_pct": 7.5891
+        },
+        "FLEET-01": {
+          "status": "MEASURED",
+          "sample_count": 60,
+          "mae": 13.6225,
+          "rmse": 18.5591,
+          "median_absolute_error": 8.58,
+          "p90_absolute_error": 32.772,
+          "bias": 10.2898,
+          "mape_pct": 10.8988
+        }
+      },
+      "driver_id": {
+        "DRIVER-00": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 5.772,
+          "rmse": 8.0695,
+          "median_absolute_error": 2.47,
+          "p90_absolute_error": 13.925,
+          "bias": -0.072,
+          "mape_pct": 5.5559
+        },
+        "DRIVER-10": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 12.258,
+          "rmse": 14.5839,
+          "median_absolute_error": 10.85,
+          "p90_absolute_error": 22.719,
+          "bias": 12.258,
+          "mape_pct": 16.496
+        },
+        "DRIVER-20": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 8.181,
+          "rmse": 9.8338,
+          "median_absolute_error": 7.87,
+          "p90_absolute_error": 15.443,
+          "bias": 5.867,
+          "mape_pct": 7.0454
+        },
+        "DRIVER-06": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 13.906,
+          "rmse": 17.3635,
+          "median_absolute_error": 9.445,
+          "p90_absolute_error": 28.65,
+          "bias": 13.906,
+          "mape_pct": 9.8614
+        },
+        "DRIVER-16": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 10.613,
+          "rmse": 14.8413,
+          "median_absolute_error": 6.76,
+          "p90_absolute_error": 22.679,
+          "bias": 10.593,
+          "mape_pct": 9.9542
+        },
+        "DRIVER-02": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 5.991,
+          "rmse": 9.4036,
+          "median_absolute_error": 2.99,
+          "p90_absolute_error": 11.3,
+          "bias": 3.819,
+          "mape_pct": 3.8111
+        },
+        "DRIVER-12": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 6.044,
+          "rmse": 9.3757,
+          "median_absolute_error": 2.37,
+          "p90_absolute_error": 16.353,
+          "bias": 1.222,
+          "mape_pct": 3.8891
+        },
+        "DRIVER-22": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 28.558,
+          "rmse": 33.3786,
+          "median_absolute_error": 31.655,
+          "p90_absolute_error": 42.612,
+          "bias": 28.558,
+          "mape_pct": 19.5658
+        },
+        "DRIVER-08": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 2.725,
+          "rmse": 3.5302,
+          "median_absolute_error": 2.31,
+          "p90_absolute_error": 4.81,
+          "bias": 2.655,
+          "mape_pct": 6.3393
+        },
+        "DRIVER-18": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 10.376,
+          "rmse": 13.384,
+          "median_absolute_error": 7.13,
+          "p90_absolute_error": 19.233,
+          "bias": 9.686,
+          "mape_pct": 11.0534
+        },
+        "DRIVER-04": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 13.779,
+          "rmse": 16.1074,
+          "median_absolute_error": 12.76,
+          "p90_absolute_error": 26.154,
+          "bias": 13.779,
+          "mape_pct": 12.751
+        },
+        "DRIVER-14": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 10.646,
+          "rmse": 13.0682,
+          "median_absolute_error": 9.585,
+          "p90_absolute_error": 23.086,
+          "bias": -6.488,
+          "mape_pct": 4.6052
+        }
+      },
+      "road_type": {
+        "URBAN": {
+          "status": "MEASURED",
+          "sample_count": 30,
+          "mae": 10.586,
+          "rmse": 14.5735,
+          "median_absolute_error": 7.285,
+          "p90_absolute_error": 26.958,
+          "bias": 10.0807,
+          "mape_pct": 8.7224
+        },
+        "HILL": {
+          "status": "MEASURED",
+          "sample_count": 30,
+          "mae": 5.3257,
+          "rmse": 6.8539,
+          "median_absolute_error": 4.095,
+          "p90_absolute_error": 12.437,
+          "bias": 2.899,
+          "mape_pct": 9.0142
+        },
+        "HIGHWAY": {
+          "status": "MEASURED",
+          "sample_count": 30,
+          "mae": 12.3447,
+          "rmse": 16.0679,
+          "median_absolute_error": 7.87,
+          "p90_absolute_error": 27.145,
+          "bias": 8.2213,
+          "mape_pct": 9.1005
+        },
+        "MIXED": {
+          "status": "MEASURED",
+          "sample_count": 30,
+          "mae": 14.6933,
+          "rmse": 20.4607,
+          "median_absolute_error": 11.195,
+          "p90_absolute_error": 36.132,
+          "bias": 10.7267,
+          "mape_pct": 10.1388
+        }
+      },
+      "weather": {
+        "CLEAR": {
+          "status": "MEASURED",
+          "sample_count": 40,
+          "mae": 7.1133,
+          "rmse": 10.1517,
+          "median_absolute_error": 3.06,
+          "p90_absolute_error": 16.353,
+          "bias": -0.3798,
+          "mape_pct": 4.4653
+        },
+        "COLD": {
+          "status": "MEASURED",
+          "sample_count": 20,
+          "mae": 20.408,
+          "rmse": 25.7568,
+          "median_absolute_error": 12.895,
+          "p90_absolute_error": 40.278,
+          "bias": 20.408,
+          "mape_pct": 18.0309
+        },
+        "HOT": {
+          "status": "MEASURED",
+          "sample_count": 40,
+          "mae": 8.797,
+          "rmse": 12.1428,
+          "median_absolute_error": 6.205,
+          "p90_absolute_error": 18.026,
+          "bias": 8.0285,
+          "mape_pct": 8.5749
+        },
+        "RAIN": {
+          "status": "MEASURED",
+          "sample_count": 20,
+          "mae": 12.196,
+          "rmse": 15.4873,
+          "median_absolute_error": 11.335,
+          "p90_absolute_error": 26.154,
+          "bias": 12.186,
+          "mape_pct": 11.3526
+        }
+      },
+      "season": {
+        "WINTER": {
+          "status": "MEASURED",
+          "sample_count": 34,
+          "mae": 13.8344,
+          "rmse": 19.6194,
+          "median_absolute_error": 10.71,
+          "p90_absolute_error": 34.85,
+          "bias": 10.7326,
+          "mape_pct": 10.7429
+        },
+        "SPRING": {
+          "status": "MEASURED",
+          "sample_count": 27,
+          "mae": 10.463,
+          "rmse": 14.1266,
+          "median_absolute_error": 6.45,
+          "p90_absolute_error": 23.284,
+          "bias": 5.3037,
+          "mape_pct": 9.0731
+        },
+        "SUMMER": {
+          "status": "MEASURED",
+          "sample_count": 32,
+          "mae": 9.7053,
+          "rmse": 13.4678,
+          "median_absolute_error": 5.705,
+          "p90_absolute_error": 21.122,
+          "bias": 7.6903,
+          "mape_pct": 8.0815
+        },
+        "MONSOON": {
+          "status": "MEASURED",
+          "sample_count": 27,
+          "mae": 8.3352,
+          "rmse": 11.8725,
+          "median_absolute_error": 6.37,
+          "p90_absolute_error": 16.552,
+          "bias": 7.5419,
+          "mape_pct": 8.9051
+        }
+      },
+      "charger_class": {
+        "AC": {
+          "status": "MEASURED",
+          "sample_count": 40,
+          "mae": 9.0245,
+          "rmse": 12.5861,
+          "median_absolute_error": 6.205,
+          "p90_absolute_error": 20.502,
+          "bias": 6.1855,
+          "mape_pct": 7.5899
+        },
+        "HPC": {
+          "status": "MEASURED",
+          "sample_count": 40,
+          "mae": 16.302,
+          "rmse": 21.2517,
+          "median_absolute_error": 11.71,
+          "p90_absolute_error": 36.255,
+          "bias": 16.297,
+          "mape_pct": 14.6917
+        },
+        "DC": {
+          "status": "MEASURED",
+          "sample_count": 40,
+          "mae": 6.8858,
+          "rmse": 9.5965,
+          "median_absolute_error": 4.63,
+          "p90_absolute_error": 15.443,
+          "bias": 1.4632,
+          "mape_pct": 5.4503
+        }
+      },
+      "temperature_c": {
+        "below_30": {
+          "status": "MEASURED",
+          "sample_count": 60,
+          "mae": 8.8075,
+          "rmse": 12.1925,
+          "median_absolute_error": 5.08,
+          "p90_absolute_error": 22.147,
+          "bias": 3.8088,
+          "mape_pct": 6.7611
+        },
+        "below_10": {
+          "status": "MEASURED",
+          "sample_count": 20,
+          "mae": 20.408,
+          "rmse": 25.7568,
+          "median_absolute_error": 12.895,
+          "p90_absolute_error": 40.278,
+          "bias": 20.408,
+          "mape_pct": 18.0309
+        },
+        "below_45": {
+          "status": "MEASURED",
+          "sample_count": 40,
+          "mae": 8.797,
+          "rmse": 12.1428,
+          "median_absolute_error": 6.205,
+          "p90_absolute_error": 18.026,
+          "bias": 8.0285,
+          "mape_pct": 8.5749
+        }
+      },
+      "soc_pct": {
+        "below_80": {
+          "status": "MEASURED",
+          "sample_count": 47,
+          "mae": 14.7026,
+          "rmse": 19.0652,
+          "median_absolute_error": 11.74,
+          "p90_absolute_error": 29.298,
+          "bias": 10.1426,
+          "mape_pct": 10.6365
+        },
+        "below_50": {
+          "status": "MEASURED",
+          "sample_count": 52,
+          "mae": 4.7948,
+          "rmse": 6.6741,
+          "median_absolute_error": 3.44,
+          "p90_absolute_error": 11.262,
+          "bias": 3.9302,
+          "mape_pct": 7.9188
+        },
+        "at_least_80": {
+          "status": "MEASURED",
+          "sample_count": 18,
+          "mae": 18.7606,
+          "rmse": 21.8989,
+          "median_absolute_error": 15.055,
+          "p90_absolute_error": 36.201,
+          "bias": 14.795,
+          "mape_pct": 9.0509
+        }
+      }
+    },
+    "source": "SIMULATED",
+    "field_verified": false
+  },
+  "residual": {
+    "status": "MEASURED",
+    "sample_count": 120,
+    "mae": 5.6413,
+    "rmse": 8.3165,
+    "median_absolute_error": 3.3291,
+    "p90_absolute_error": 15.0313,
+    "bias": 0.5302,
+    "mape_pct": 4.674,
+    "interval_sample_count": 120,
+    "interval_coverage": 0.9833,
+    "by_segment": {
+      "vehicle_id": {
+        "CITY-01": {
+          "status": "MEASURED",
+          "sample_count": 60,
+          "mae": 4.6714,
+          "rmse": 7.3847,
+          "median_absolute_error": 1.9675,
+          "p90_absolute_error": 13.2495,
+          "bias": 0.5837,
+          "mape_pct": 4.4912
+        },
+        "FLEET-01": {
+          "status": "MEASURED",
+          "sample_count": 60,
+          "mae": 6.6113,
+          "rmse": 9.1539,
+          "median_absolute_error": 5.0457,
+          "p90_absolute_error": 15.9225,
+          "bias": 0.4767,
+          "mape_pct": 4.8568
+        }
+      },
+      "driver_id": {
+        "DRIVER-00": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 5.8162,
+          "rmse": 8.4086,
+          "median_absolute_error": 2.1568,
+          "p90_absolute_error": 13.515,
+          "bias": 0.5002,
+          "mape_pct": 5.5102
+        },
+        "DRIVER-10": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 3.7568,
+          "rmse": 4.7508,
+          "median_absolute_error": 3.0848,
+          "p90_absolute_error": 6.7829,
+          "bias": -2.2686,
+          "mape_pct": 5.4276
+        },
+        "DRIVER-20": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 4.8315,
+          "rmse": 7.5371,
+          "median_absolute_error": 2.9645,
+          "p90_absolute_error": 9.24,
+          "bias": -0.6502,
+          "mape_pct": 4.0876
+        },
+        "DRIVER-06": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 6.1354,
+          "rmse": 8.0824,
+          "median_absolute_error": 4.9387,
+          "p90_absolute_error": 10.6819,
+          "bias": 4.1599,
+          "mape_pct": 4.2964
+        },
+        "DRIVER-16": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 4.2965,
+          "rmse": 6.4674,
+          "median_absolute_error": 2.3121,
+          "p90_absolute_error": 9.5963,
+          "bias": -0.2482,
+          "mape_pct": 4.6899
+        },
+        "DRIVER-02": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 6.3822,
+          "rmse": 10.0843,
+          "median_absolute_error": 3.8343,
+          "p90_absolute_error": 11.2897,
+          "bias": 4.3264,
+          "mape_pct": 3.786
+        },
+        "DRIVER-12": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 6.7698,
+          "rmse": 10.4915,
+          "median_absolute_error": 1.882,
+          "p90_absolute_error": 19.5211,
+          "bias": 1.6866,
+          "mape_pct": 4.3098
+        },
+        "DRIVER-22": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 7.4935,
+          "rmse": 9.5208,
+          "median_absolute_error": 5.7523,
+          "p90_absolute_error": 15.4887,
+          "bias": -1.4051,
+          "mape_pct": 5.5541
+        },
+        "DRIVER-08": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 1.9372,
+          "rmse": 2.2422,
+          "median_absolute_error": 1.688,
+          "p90_absolute_error": 3.8653,
+          "bias": -0.1943,
+          "mape_pct": 4.9678
+        },
+        "DRIVER-18": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 5.3888,
+          "rmse": 8.1467,
+          "median_absolute_error": 3.0331,
+          "p90_absolute_error": 10.7275,
+          "bias": 3.8092,
+          "mape_pct": 5.582
+        },
+        "DRIVER-04": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 4.377,
+          "rmse": 6.5391,
+          "median_absolute_error": 1.706,
+          "p90_absolute_error": 10.8284,
+          "bias": 2.4084,
+          "mape_pct": 3.3822
+        },
+        "DRIVER-14": {
+          "status": "MEASURED",
+          "sample_count": 10,
+          "mae": 10.5107,
+          "rmse": 12.4965,
+          "median_absolute_error": 9.6593,
+          "p90_absolute_error": 20.9566,
+          "bias": -5.762,
+          "mape_pct": 4.4948
+        }
+      },
+      "road_type": {
+        "URBAN": {
+          "status": "MEASURED",
+          "sample_count": 30,
+          "mae": 5.7722,
+          "rmse": 8.8647,
+          "median_absolute_error": 2.8342,
+          "p90_absolute_error": 17.2405,
+          "bias": 2.8394,
+          "mape_pct": 4.2508
+        },
+        "HILL": {
+          "status": "MEASURED",
+          "sample_count": 30,
+          "mae": 3.4204,
+          "rmse": 4.914,
+          "median_absolute_error": 2.0991,
+          "p90_absolute_error": 7.8967,
+          "bias": -0.8646,
+          "mape_pct": 5.737
+        },
+        "HIGHWAY": {
+          "status": "MEASURED",
+          "sample_count": 30,
+          "mae": 5.6365,
+          "rmse": 7.8437,
+          "median_absolute_error": 4.9387,
+          "p90_absolute_error": 12.7121,
+          "bias": -2.4933,
+          "mape_pct": 3.7904
+        },
+        "MIXED": {
+          "status": "MEASURED",
+          "sample_count": 30,
+          "mae": 7.7361,
+          "rmse": 10.6019,
+          "median_absolute_error": 5.5163,
+          "p90_absolute_error": 20.1282,
+          "bias": 2.6392,
+          "mape_pct": 4.9179
+        }
+      },
+      "weather": {
+        "CLEAR": {
+          "status": "MEASURED",
+          "sample_count": 40,
+          "mae": 7.3698,
+          "rmse": 10.4717,
+          "median_absolute_error": 4.6388,
+          "p90_absolute_error": 19.3147,
+          "bias": 0.1878,
+          "mape_pct": 4.5252
+        },
+        "COLD": {
+          "status": "MEASURED",
+          "sample_count": 20,
+          "mae": 5.6252,
+          "rmse": 7.5238,
+          "median_absolute_error": 5.2456,
+          "p90_absolute_error": 11.5412,
+          "bias": -1.8368,
+          "mape_pct": 5.4908
+        },
+        "HOT": {
+          "status": "MEASURED",
+          "sample_count": 40,
+          "mae": 4.5732,
+          "rmse": 6.9557,
+          "median_absolute_error": 2.5597,
+          "p90_absolute_error": 9.6116,
+          "bias": 1.7811,
+          "mape_pct": 4.7334
+        },
+        "RAIN": {
+          "status": "MEASURED",
+          "sample_count": 20,
+          "mae": 4.3367,
+          "rmse": 6.5034,
+          "median_absolute_error": 2.0215,
+          "p90_absolute_error": 10.8284,
+          "bias": 1.0801,
+          "mape_pct": 4.036
+        }
+      },
+      "season": {
+        "WINTER": {
+          "status": "MEASURED",
+          "sample_count": 34,
+          "mae": 7.3671,
+          "rmse": 9.7898,
+          "median_absolute_error": 5.463,
+          "p90_absolute_error": 19.1116,
+          "bias": 2.1141,
+          "mape_pct": 5.5777
+        },
+        "SPRING": {
+          "status": "MEASURED",
+          "sample_count": 27,
+          "mae": 5.5228,
+          "rmse": 8.9076,
+          "median_absolute_error": 1.8787,
+          "p90_absolute_error": 18.9019,
+          "bias": -1.5843,
+          "mape_pct": 3.9113
+        },
+        "SUMMER": {
+          "status": "MEASURED",
+          "sample_count": 32,
+          "mae": 5.4703,
+          "rmse": 8.584,
+          "median_absolute_error": 1.9754,
+          "p90_absolute_error": 13.0613,
+          "bias": 0.3335,
+          "mape_pct": 4.7407
+        },
+        "MONSOON": {
+          "status": "MEASURED",
+          "sample_count": 27,
+          "mae": 3.7893,
+          "rmse": 4.4757,
+          "median_absolute_error": 3.5426,
+          "p90_absolute_error": 6.6163,
+          "bias": 0.8832,
+          "mape_pct": 4.2198
+        }
+      },
+      "charger_class": {
+        "AC": {
+          "status": "MEASURED",
+          "sample_count": 40,
+          "mae": 6.0276,
+          "rmse": 8.8384,
+          "median_absolute_error": 3.0331,
+          "p90_absolute_error": 17.6995,
+          "bias": 2.539,
+          "mape_pct": 4.9246
+        },
+        "HPC": {
+          "status": "MEASURED",
+          "sample_count": 40,
+          "mae": 4.9809,
+          "rmse": 7.0321,
+          "median_absolute_error": 3.3579,
+          "p90_absolute_error": 11.5315,
+          "bias": -0.3784,
+          "mape_pct": 4.7634
+        },
+        "DC": {
+          "status": "MEASURED",
+          "sample_count": 40,
+          "mae": 5.9154,
+          "rmse": 8.9399,
+          "median_absolute_error": 3.4854,
+          "p90_absolute_error": 16.0112,
+          "bias": -0.57,
+          "mape_pct": 4.334
+        }
+      },
+      "temperature_c": {
+        "below_30": {
+          "status": "MEASURED",
+          "sample_count": 60,
+          "mae": 6.3587,
+          "rmse": 9.3382,
+          "median_absolute_error": 2.7118,
+          "p90_absolute_error": 17.2405,
+          "bias": 0.4852,
+          "mape_pct": 4.3621
+        },
+        "below_10": {
+          "status": "MEASURED",
+          "sample_count": 20,
+          "mae": 5.6252,
+          "rmse": 7.5238,
+          "median_absolute_error": 5.2456,
+          "p90_absolute_error": 11.5412,
+          "bias": -1.8368,
+          "mape_pct": 5.4908
+        },
+        "below_45": {
+          "status": "MEASURED",
+          "sample_count": 40,
+          "mae": 4.5732,
+          "rmse": 6.9557,
+          "median_absolute_error": 2.5597,
+          "p90_absolute_error": 9.6116,
+          "bias": 1.7811,
+          "mape_pct": 4.7334
+        }
+      },
+      "soc_pct": {
+        "below_80": {
+          "status": "MEASURED",
+          "sample_count": 47,
+          "mae": 6.911,
+          "rmse": 9.558,
+          "median_absolute_error": 4.553,
+          "p90_absolute_error": 18.3451,
+          "bias": -0.1885,
+          "mape_pct": 4.5102
+        },
+        "below_50": {
+          "status": "MEASURED",
+          "sample_count": 52,
+          "mae": 2.6452,
+          "rmse": 3.6445,
+          "median_absolute_error": 1.783,
+          "p90_absolute_error": 6.4039,
+          "bias": -0.1801,
+          "mape_pct": 4.5826
+        },
+        "at_least_80": {
+          "status": "MEASURED",
+          "sample_count": 18,
+          "mae": 11.7596,
+          "rmse": 13.5626,
+          "median_absolute_error": 9.9547,
+          "p90_absolute_error": 20.1936,
+          "bias": 4.3847,
+          "mape_pct": 5.639
+        }
+      }
+    },
+    "source": "SIMULATED",
+    "field_verified": false
+  },
+  "test_rows": 120
+}

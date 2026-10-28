@@ -1,0 +1,40 @@
+{
+  "task": "CHARGER_AVAILABILITY",
+  "training_count": 960,
+  "training_source": "SIMULATED",
+  "original": {
+    "status": "MEASURED",
+    "sample_count": 120,
+    "true_positive": 104,
+    "false_positive": 16,
+    "true_negative": 0,
+    "false_negative": 0,
+    "precision": 0.8667,
+    "recall": 1.0,
+    "false_positive_rate": 1.0,
+    "false_negative_rate": 0.0,
+    "brier_score": 0.1164,
+    "mean_absolute_probability_error": 0.249,
+    "auroc": 0.5421,
+    "source": "SIMULATED",
+    "field_verified": false
+  },
+  "group_baseline": {
+    "status": "MEASURED",
+    "sample_count": 120,
+    "true_positive": 104,
+    "false_positive": 16,
+    "true_negative": 0,
+    "false_negative": 0,
+    "precision": 0.8667,
+    "recall": 1.0,
+    "false_positive_rate": 1.0,
+    "false_negative_rate": 0.0,
+    "brier_score": 0.1163,
+    "mean_absolute_probability_error": 0.2493,
+    "auroc": 0.5481,
+    "source": "SIMULATED",
+    "field_verified": false
+  },
+  "test_rows": 120
+}

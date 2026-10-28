@@ -1,0 +1,78 @@
+{
+  "url": "http://127.0.0.1:8004",
+  "fleet_map": {
+    "tiles_loaded": true,
+    "reported_marker": true,
+    "status": "1 reported location \u00b7 last known position \u00b7 telemetry stale \u00b7 demo map tiles"
+  },
+  "trip_history": {
+    "loaded": true,
+    "telemetry_provenance": true
+  },
+  "trip_replay": {
+    "historical_label": true,
+    "slider": true,
+    "map_marker": true
+  },
+  "fleet_insights": {
+    "stored_frames": true,
+    "source_label": "SIMULATED",
+    "rule_alerts": 1,
+    "notifications": 1
+  },
+  "place_search_ui": {
+    "provider_result_selected": true,
+    "quota_state_visible": true
+  },
+  "desktop": {
+    "viewport": "1440x900",
+    "answer": "T0 \u00b7 Estimated arrival charge: 55.4% (54.4\u201356.5%).",
+    "overflow": false
+  },
+  "map_stale_location": {
+    "labeled": true,
+    "dimmed_pin": true
+  },
+  "map_invalid_location_hidden": true,
+  "map_missing_location": true,
+  "road_route_ui": {
+    "alternative_selection": true,
+    "manual_override_provenance": true,
+    "sourced_context_and_unavailable_state": true
+  },
+  "trip_command_ui": {
+    "start_complete": true,
+    "manual_soc_separate_from_telemetry": true
+  },
+  "daily_plan_ui": {
+    "draft_confirm": true,
+    "degraded_route_labeled": true,
+    "manual_soc_separate_from_telemetry": true
+  },
+  "copilot_denial": true,
+  "connection_recovery": true,
+  "theme": {
+    "light_palette": true,
+    "persisted_after_reload": true
+  },
+  "mobile_390": {
+    "viewport": "390x844",
+    "overflow": false
+  },
+  "mobile_320": {
+    "viewport": "320x740",
+    "overflow": false
+  },
+  "reduced_motion": {
+    "route_animation_duration": "1e-05s",
+    "content_visible": true
+  },
+  "viewer_ui": {
+    "trip_write_disabled": true,
+    "daily_plan_write_disabled": true,
+    "advisory_write_disabled": true
+  },
+  "key_switch_clears_data": true,
+  "map_tile_failure": true,
+  "page_errors": 0
+}
