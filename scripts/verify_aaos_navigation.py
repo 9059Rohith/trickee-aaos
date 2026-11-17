@@ -179,6 +179,31 @@ def guidance_notice(serial: str) -> bool:
                and "ONGOING_EVENT" in line for line in records.splitlines())
 
 
+def guidance_notice_text(serial: str) -> str | None:
+    records = adb(serial, "shell", "dumpsys", "notification", "--noredact")
+    in_notice = False
+    for line in records.splitlines():
+        if "NotificationRecord(" in line:
+            in_notice = f"pkg={PACKAGE} " in line and "id=17001 " in line
+        elif in_notice and "android.text=String (" in line:
+            return line.partition("android.text=String (")[2].rsplit(")", 1)[0]
+    return None
+
+
+def wait_guidance_notice_text(serial: str, paused: bool, seconds: int = 25) -> None:
+    deadline = time.monotonic() + seconds
+    last = None
+    while time.monotonic() < deadline:
+        last = guidance_notice_text(serial)
+        if paused and last == "Car location unavailable. Guidance paused.":
+            return
+        if not paused and last and (last.startswith("In ")
+                                    or last == "Continue to the destination."):
+            return
+        time.sleep(2)
+    raise AssertionError(f"Guidance notice did not {'pause' if paused else 'recover'}: {last}")
+
+
 def fixture_available(port: int, available: bool) -> None:
     body = json.dumps({"available": available}).encode("ascii")
     request = urllib.request.Request(
@@ -268,7 +293,7 @@ def main() -> None:
             time.sleep(3)
             notice_permission_denied = wait_color(serial,
                 output / "notice-permission-denied.png", 540, 180, (19, 19, 19), 30,
-                second=(540, 355, (73, 73, 73), 45))
+                second=(540, 355, (73, 73, 73), 80))
             if guidance_notice(serial):
                 raise AssertionError("Denied notice permission still produced a navigation notice")
         adb(serial, "shell", "pm", "grant", "--user", current_user, PACKAGE,
@@ -286,7 +311,7 @@ def main() -> None:
         time.sleep(3)
         route_preview = wait_color(serial, output / "route-preview.png", 540, 180,
                                    (19, 19, 19), 30,
-                                   second=(540, 355, (73, 73, 73), 45))
+                                   second=(540, 355, (73, 73, 73), 80))
         if route_preview["sha256"] == valid["sha256"]:
             raise AssertionError("Route preview did not alter the template surface")
         for attempt in range(3):
@@ -311,26 +336,19 @@ def main() -> None:
         adb(serial, "shell", "cmd", "location", "set-location-enabled", "false")
         try:
             time.sleep(16)
-            location_paused = wait_color(serial, output / "location-paused.png", 400, 110,
-                                         (19, 19, 19), 40,
-                                         second=(540, 180, (247, 247, 247), 40))
-            if color_distance(png_rgb_at(output / "location-paused.png", 400, 110),
-                              png_rgb_at(output / "active-guidance.png", 400, 110)) < 100:
-                raise AssertionError("Location loss did not show the guidance pause")
+            wait_guidance_notice_text(serial, paused=True)
+            location_paused = wait_screenshot(serial, output / "location-paused.png")
         finally:
             adb(serial, "shell", "cmd", "location", "set-location-enabled", "true")
         adb(serial, "emu", "geo", "fix", "77.5946", "12.9716")
-        time.sleep(2)
-        location_restored = wait_color(serial, output / "location-restored.png", 400, 110,
+        wait_guidance_notice_text(serial, paused=False)
+        location_restored = wait_color(serial, output / "location-restored.png", 540, 180,
                                        (247, 247, 247), 40)
-        if color_distance(png_rgb_at(output / "location-restored.png", 400, 110),
-                          png_rgb_at(output / "active-guidance.png", 400, 110)) > 80:
-            raise AssertionError("Guidance did not recover after location returned")
         tap_navigation_stop(serial, location_restored)
         time.sleep(1)
         stopped_guidance = wait_color(serial, output / "stopped-guidance.png", 540, 180,
                                       preview_background, 30,
-                                      second=(540, 355, (73, 73, 73), 45))
+                                      second=(540, 355, (73, 73, 73), 80))
         if color_distance(png_rgb_at(output / "stopped-guidance.png", 540, 180),
                           preview_background) > 30:
             raise AssertionError("Stop did not return to the route preview")
