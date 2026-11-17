@@ -93,7 +93,7 @@ def tap(label: str, *, exact: bool = True) -> None:
             text = node.attrib.get("text", "") or node.attrib.get("hint", "")
             if (text.casefold() == label.casefold() if exact else label.casefold() in text.casefold()) and node.attrib.get("enabled") == "true":
                 x1, y1, x2, y2 = map(int, re.findall(r"\d+", node.attrib["bounds"]))
-                if 180 <= (y1 + y2) // 2 <= 2050:
+                if 100 <= (y1 + y2) // 2 <= 2050:
                     time.sleep(0.25)  # Let a just-finished scroll/layout settle before tapping.
                     print(f"TAP {label} at {(x1 + x2) // 2},{(y1 + y2) // 2}", flush=True)
                     adb("shell", "input", "tap", str((x1 + x2) // 2), str((y1 + y2) // 2))
@@ -115,25 +115,29 @@ def fill(label: str, value: str) -> None:
     wait_until(lambda: any(node.attrib.get("hint") == label and node.attrib.get("focused") == "true"
                            for node in hierarchy().iter("node")),
                f"input not focused: {label}", 10)
-    time.sleep(0.4)
-    if label == "Driver credential":
-        for index in range(0, len(value), 8):
-            adb("shell", "input", "text", value[index:index + 8])
-    else:
-        adb("shell", "input", "text", value)
-    if label == "HTTPS server origin":
-        def entered():
-            return any(node.attrib.get("hint") == label and node.attrib.get("text") == value
-                       for node in hierarchy().iter("node"))
-        wait_until(entered, "server origin was not entered completely", 15)
-    elif label == "Driver credential":
-        def entered_secret():
-            return any(node.attrib.get("hint") == label
-                       and len(node.attrib.get("text", "")) == len(value)
-                       for node in hierarchy().iter("node"))
-        wait_until(entered_secret, "driver credential was not entered completely", 15)
-    else:
-        time.sleep(1)
+    for attempt in range(3):
+        adb("shell", "input", "keycombination", "KEYCODE_CTRL_LEFT", "KEYCODE_A")
+        time.sleep(0.4)
+        chunks = (value[index:index + 8] for index in range(0, len(value), 8)) \
+            if label == "Driver credential" else (value,)
+        for chunk in chunks:
+            adb("shell", "input", "text", chunk)
+        if label == "HTTPS server origin":
+            entered = lambda: any(node.attrib.get("hint") == label and node.attrib.get("text") == value
+                                  for node in hierarchy().iter("node"))
+        elif label == "Driver credential":
+            entered = lambda: any(node.attrib.get("hint") == label
+                                  and len(node.attrib.get("text", "")) == len(value)
+                                  for node in hierarchy().iter("node"))
+        else:
+            time.sleep(1)
+            break
+        try:
+            wait_until(entered, f"{label} was not entered completely", 8)
+            break
+        except AssertionError:
+            if attempt == 2:
+                raise
     adb("shell", "input", "keyevent", "KEYCODE_BACK")
 
 
