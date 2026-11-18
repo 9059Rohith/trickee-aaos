@@ -93,7 +93,9 @@ def tap(label: str, *, exact: bool = True) -> None:
             text = node.attrib.get("text", "") or node.attrib.get("hint", "")
             if (text.casefold() == label.casefold() if exact else label.casefold() in text.casefold()) and node.attrib.get("enabled") == "true":
                 x1, y1, x2, y2 = map(int, re.findall(r"\d+", node.attrib["bounds"]))
-                if 100 <= (y1 + y2) // 2 <= 2050:
+                # A clipped control near the status bar can appear in the
+                # accessibility tree while the system intercepts its tap.
+                if 180 <= (y1 + y2) // 2 <= 2050:
                     time.sleep(0.25)  # Let a just-finished scroll/layout settle before tapping.
                     print(f"TAP {label} at {(x1 + x2) // 2},{(y1 + y2) // 2}", flush=True)
                     adb("shell", "input", "tap", str((x1 + x2) // 2), str((y1 + y2) // 2))
