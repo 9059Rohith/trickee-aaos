@@ -17,6 +17,7 @@ services:
       - trickee_staging_data:/app/data
     networks:
       - backend
+      - egress
     read_only: true
     tmpfs:
       - /tmp:size=32m,mode=1777
@@ -66,6 +67,7 @@ secrets:
 networks:
   backend:
     internal: true
+  egress: {}
   public: {}
 
 volumes:

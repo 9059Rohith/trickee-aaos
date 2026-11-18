@@ -77,6 +77,13 @@ else:
                 if attempt == 29:
                     raise RuntimeError("staging cloud did not pass readiness/auth smoke: " + result.stderr[-1500:])
                 time.sleep(1)
+            network_check = """from pathlib import Path
+routes = [line.split() for line in Path('/proc/net/route').read_text().splitlines()[1:]]
+assert any(len(route) > 7 and route[1] == '00000000' and route[7] == '00000000'
+           and int(route[3], 16) & 1 for route in routes), (
+    'Cloud has no outbound default route: routing, charging and identity providers are unreachable')
+"""
+            run(base + ["exec", "-T", "cloud", "python", "-c", network_check], env)
             seed = """from trickee.store import CloudStore
 from trickee.simulator import demo_profile, scenario_frame
 cloud = CloudStore('/app/data/cloud.db')
@@ -129,11 +136,11 @@ restored.close()
             run(base + ["exec", "-T", "cloud", "python", "-c", inspect], env)
             run(base + ["restart", "cloud"], env)
             for attempt in range(30):
-                result = run(base + ["exec", "-T", "cloud", "python", "-c", check + inspect],
+                result = run(base + ["exec", "-T", "cloud", "python", "-c", check + inspect + network_check],
                              env, check=False)
                 if result.returncode == 0:
                     print("Isolated staging cloud passed: ready=200 operator=200 demo-key=401 "
-                          "backup=ok restored-copy=ok restart=ok caddy-config=valid")
+                          "backup=ok restored-copy=ok restart=ok caddy-config=valid outbound-route=ok")
                     return
                 if attempt == 29:
                     raise RuntimeError("staging cloud failed after restart: " + result.stderr[-1500:])
