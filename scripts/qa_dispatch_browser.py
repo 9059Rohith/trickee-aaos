@@ -181,7 +181,11 @@ def run() -> None:
                     companion.locator("#orderList .nudge-card").filter(has_text="MG Road pickup").locator(
                         "strong").filter(has_text="PHONE QUEUED PICKUP").wait_for()
                     companion.unroute("**/api/v1/driver/internal-orders/*/pickup")
-                    companion.locator("#syncOrders").click()
+                    # The change feed can replay the queued pickup as soon as the
+                    # outage ends. Click only if a manual retry is still available;
+                    # either path must reach the confirmed server state below.
+                    companion.locator("#syncOrders").evaluate(
+                        "button => { if (!button.disabled) button.click(); }")
                     companion.locator("#orderList .nudge-card").filter(has_text="MG Road pickup").get_by_text(
                         "PICKED UP", exact=False).wait_for()
                     companion.locator("#orderList .nudge-card").filter(has_text="MG Road pickup").get_by_role(
