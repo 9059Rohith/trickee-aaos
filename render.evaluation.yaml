@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: trickee-phone-evaluation
+    runtime: docker
+    plan: free
+    region: singapore
+    repo: https://github.com/9059Rohith/trickee-aaos
+    branch: main
+    dockerfilePath: ./Dockerfile
+    dockerCommand: python -m trickee.remote_evaluation
+    autoDeployTrigger: "off"
+    healthCheckPath: /ready
+    envVars:
+      - key: TRICKEE_EVALUATION_MODE
+        value: "1"
+      - key: TRICKEE_DEPLOYMENT_MODE
+        value: staging
+      - key: TRICKEE_DEMO_MODE
+        value: "0"
+      - key: TRICKEE_DB
+        value: /app/data/evaluation.db
+      - key: TRICKEE_PHONE_GPS_RETENTION_DAYS
+        value: "7"
+      - key: TRICKEE_EVALUATION_OPERATOR_KEY
+        generateValue: true
+      - key: TRICKEE_EVALUATION_DRIVER_KEY
+        generateValue: true
+      - key: TRICKEE_VEHICLE_KEY
+        generateValue: true
