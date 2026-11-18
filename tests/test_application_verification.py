@@ -80,6 +80,17 @@ def test_fingerprint_includes_dependency_and_container_configuration(tmp_path, m
     assert len({first, second, third}) == 3
 
 
+def test_fingerprint_tracks_node_regression_test_changes(tmp_path, monkeypatch):
+    monkeypatch.setattr(verification, "ROOT", tmp_path)
+    tests = tmp_path / "tests"
+    tests.mkdir()
+    regression = tests / "driver-service-worker.test.cjs"
+    regression.write_text("first regression")
+    before = verification._source()["source_sha256"]
+    regression.write_text("changed regression")
+    assert verification._source()["source_sha256"] != before
+
+
 def test_source_changed_during_verification_cannot_pass(tmp_path, monkeypatch):
     monkeypatch.setattr(verification, "ROOT", tmp_path)
     (tmp_path / "requirements.lock").write_text("before")

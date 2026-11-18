@@ -41,6 +41,7 @@ final class DriverApi {
             boolean localDebug = BuildConfig.DEBUG && "http".equalsIgnoreCase(uri.getScheme())
                     && ("10.0.2.2".equals(uri.getHost()) || "127.0.0.1".equals(uri.getHost()));
             if ((!secure && !localDebug) || uri.getHost() == null || uri.getRawUserInfo() != null
+                    || uri.getPort() == 0 || uri.getPort() > 65535 || uri.getRawAuthority().endsWith(":")
                     || uri.getRawPath() != null && !uri.getRawPath().isEmpty() && !"/".equals(uri.getRawPath())
                     || uri.getRawQuery() != null || uri.getRawFragment() != null)
                 throw new IllegalArgumentException("Use an HTTPS server origin (debug emulator permits http://10.0.2.2)");

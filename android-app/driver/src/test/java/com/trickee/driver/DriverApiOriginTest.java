@@ -18,4 +18,13 @@ public final class DriverApiOriginTest {
             assertThrows(value, IllegalArgumentException.class, () -> DriverApi.validateOrigin(value));
         }
     }
+
+    @Test public void rejectsInvalidPortsBeforeSavingConnection() {
+        for (String value : new String[] {
+                "https://fleet.example:0", "https://fleet.example:65536",
+                "https://fleet.example:99999", "https://fleet.example:"}) {
+            assertThrows(value, IllegalArgumentException.class, () -> DriverApi.validateOrigin(value));
+        }
+        assertEquals("https://fleet.example:8443", DriverApi.validateOrigin("https://fleet.example:8443/"));
+    }
 }

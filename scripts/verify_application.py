@@ -139,7 +139,7 @@ def _source() -> dict:
             for filename in sorted(files):
                 path = Path(directory) / filename
                 if path.name == "local.properties" or path.suffix not in {
-                    ".py", ".ps1", ".js", ".css", ".html", ".java", ".kt", ".xml", ".gradle",
+                    ".py", ".ps1", ".js", ".cjs", ".css", ".html", ".java", ".kt", ".xml", ".gradle",
                     ".properties", ".jar", ".bat", ".sh", ".json", ".yml", ".yaml", ".webmanifest", ""}:
                     continue
                 digest.update(path.relative_to(ROOT).as_posix().encode())
@@ -184,6 +184,8 @@ def build_checks(profile: str, *, android_offline: bool = False, docker_wsl: str
     python = sys.executable
     checks = [Check("python", (python, "-m", "pytest", "-q"), timeout=1200),
               Check("sbom", (python, "scripts/build_sbom.py", "--check"))]
+    checks.append(Check("driver-service-worker", ("node", "--test", "tests/driver-service-worker.test.cjs"),
+                        unavailable=None if shutil.which("node") else "Install Node.js to verify offline caching"))
     for path in ("fleet-console/app.js", "fleet-console/map.js", "driver-console/app.js", "driver-console/sw.js", "fleet-console/assets/workspace.js", "fleet-console/assets/personal.js", "fleet-console/assets/account-access.js", "fleet-console/assets/files.js", "fleet-console/assets/navigation.js"):
         checks.append(Check(path.replace("/", "-").replace(".", "-"), ("node", "--check", path),
                             unavailable=None if shutil.which("node") else "Install Node.js to verify browser syntax"))

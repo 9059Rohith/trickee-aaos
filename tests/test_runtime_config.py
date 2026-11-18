@@ -79,6 +79,22 @@ def test_network_deployment_rejects_ambiguous_demo_mode():
         validate_deployment(staging(TRICKEE_DEMO_MODE="true"))
 
 
+@pytest.mark.parametrize("origin", [
+    "https://127.0.0.2", "https://10.0.0.5", "https://[::1]",
+    "https://[fc00::1]", "https://localhost.", "https://host.localhost",
+    "https://fleet.example.test:0", "https://fleet.example.test:65536",
+    "https://fleet.example.test:", " https://fleet.example.test",
+    "https://fleet.exa\tmple.test", "https://fleet.example.test\n",
+])
+def test_network_origin_rejects_private_addresses_and_malformed_authorities(origin):
+    with pytest.raises(ValueError):
+        validate_deployment(staging(TRICKEE_PUBLIC_URL=origin))
+
+
+def test_network_origin_preserves_valid_custom_https_ports():
+    validate_deployment(staging(TRICKEE_PUBLIC_URL="https://fleet.example.test:8443/"))
+
+
 def test_file_secrets_are_loaded_without_leaking_path_or_value(tmp_path):
     secret = tmp_path / "vehicle_key"
     secret.write_text("v" * 40 + "\n", encoding="utf-8")

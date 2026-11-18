@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
+from ipaddress import ip_address
 from pathlib import Path, PurePosixPath
 from urllib.parse import urlsplit
 
@@ -65,10 +66,21 @@ def validate_deployment(values: Mapping[str, str]) -> None:
     if values.get("TRICKEE_DEMO_MODE", "0") not in ("0", ""):
         raise ValueError("demo mode is forbidden in network deployments")
     public_url = values.get("TRICKEE_PUBLIC_URL", "")
+    if any(character.isspace() or ord(character) < 32 or ord(character) == 127
+           for character in public_url):
+        raise ValueError("network deployment requires a public HTTPS origin")
     parsed = urlsplit(public_url)
+    hostname = (parsed.hostname or "").rstrip(".").lower()
     if (parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password
             or parsed.query or parsed.fragment or parsed.path not in ("", "/")
-            or parsed.hostname in ("localhost", "127.0.0.1", "::1")):
+            or hostname == "localhost" or hostname.endswith(".localhost")
+            or parsed.netloc.endswith(":") or parsed.port == 0):
+        raise ValueError("network deployment requires a public HTTPS origin")
+    try:
+        address = ip_address(hostname)
+    except ValueError:
+        address = None  # Domain names are resolved by the deployment's DNS, not at startup.
+    if address is not None and not address.is_global:
         raise ValueError("network deployment requires a public HTTPS origin")
     if mode == "production" and _placeholder_host(parsed.hostname):
         raise ValueError("production requires a real public HTTPS origin")
