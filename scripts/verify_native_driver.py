@@ -83,6 +83,10 @@ def tap(label: str, *, exact: bool = True) -> None:
         time.sleep(0.3)
     # Slow, shorter swipes avoid fling-overshooting a control on the emulator.
     directions = [(1850, 1100)] * 12 + [(1200, 1750)] * 20
+    if label in {"HTTPS server origin", "Driver credential", "Connect", "Disconnect"}:
+        # These controls are at the top. Trip and route details can make the
+        # page too long for the usual down-then-partway-up search to reach them.
+        directions = [(500, 1900)] * 40 + [(1850, 1100)] * 20
     for step in range(len(directions) + 1):
         focused_window = re.search(r"mCurrentFocus=([^\n]+)", adb("shell", "dumpsys", "window"))
         if focused_window and "NotificationShade" in focused_window.group(1):
